@@ -9,14 +9,19 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": false,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/logo.png",
         "backgroundColor": "#323639"
       },
-      "package": "com.diana7.instadruna"
+      "package": "com.diana7.instadruna",
+      "runtimeVersion": "1.0.0",
+      "usesCleartextTraffic": true
     },
     "web": {
       "bundler": "metro",
@@ -46,6 +51,10 @@
     "notification": {
       "icon": "./assets/images/logo.png",
       "color": "#000000"
+    },
+    "owner": "diana7",
+    "updates": {
+      "url": "https://u.expo.dev/00d28e6e-5f07-4817-a9fd-6ed0541e3c3c"
     }
   }
 }
