@@ -229,7 +229,7 @@ const SinglePublication = ({ route }) => {
                 <Image source={
                     publicacion.imageUrl
                       ? { uri: publicacion.imageUrl }
-                      : require("../../assets/images/addpubb.png")
+                      : require("../../assets/images/addpubB.png")
                   }
                   style={styles.publicationImage}
                 />

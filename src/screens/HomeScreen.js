@@ -243,7 +243,7 @@ const HomeScreen = ({ route, onLogout }) => {
         <Image
             source={item.imageUrl
               ? { uri: item.imageUrl }
-              : require("../../assets/images/addpubb.png")}
+              : require("../../assets/images/addpubB.png")}
             style={styles.image}
           />
         </TouchableOpacity>

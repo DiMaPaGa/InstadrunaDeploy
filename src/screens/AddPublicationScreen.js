@@ -106,7 +106,7 @@ const AddPublicationScreen = ({ route }) => {
       } else {
         // Si no hay imagen, usamos la imagen predeterminada
         console.log('Usando imagen predeterminada...');
-        const defaultImageUrl = '../../assets/images/addpubb.png';
+        const defaultImageUrl = '../../assets/images/addpubB.png';
         imageUrl = defaultImageUrl;
       }
   
@@ -175,7 +175,7 @@ const AddPublicationScreen = ({ route }) => {
       {/* Imagen seleccionada (clickeable) */}
       <TouchableOpacity onPress={handleImagePick}>
         <Image 
-          source={selectedImage ? { uri: selectedImage } : require('../../assets/images/addpubb.png')} 
+          source={selectedImage ? { uri: selectedImage } : require('../../assets/images/addpubB.png')} 
           style={styles.imageIcon} 
         />
       </TouchableOpacity>
