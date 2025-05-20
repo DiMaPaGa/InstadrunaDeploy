@@ -301,21 +301,12 @@ const HomeScreen = ({ route, onLogout }) => {
 
       {/* Carrusel de historias */}
       <View style={styles.carouselContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('AddStoryScreen', { userId })}>
-          <Image 
-            source={profileImageUrl ? { uri: profileImageUrl } : require("../../assets/images/iconUser.png")} 
-            style={styles.avatar}
-          />
-          <Text style={styles.addStoryText}>Añadir historia</Text>
-        </TouchableOpacity>
-
-        {/* Si el usuario tiene historias, las mostramos en el carrusel */}
-        {Array.isArray(stories) && stories.length > 0 && (
-          <StoryCarousel 
-            stories={stories} 
-            onStoryPress={handleStoryPress} // Asegúrate de que este funcione bien
-          />
-        )}
+        <StoryCarousel
+          stories={stories}
+          onStoryPress={handleStoryPress}
+          currentUser={{ givenName, profileImageUrl }}
+          onAddStoryPress={() => navigation.navigate('AddStoryScreen', { userId })}
+        />
       </View>
 
 

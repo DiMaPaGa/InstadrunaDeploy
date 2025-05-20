@@ -30,18 +30,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    backgroundColor: "#1e1e1e",
+    backgroundColor: "#23272A",
   },
   logo: {
     width: 90,
     height: 90,
     marginBottom: 30,
-    tintColor: "#33c4ff",
   },
   title: {
     fontSize: 30,
     fontWeight: "bold",
     marginBottom: 20,
+    color: "#33c4ff",
   },
   subtitle: {
     fontSize: 16,
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   loginButton: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#4285F4",
+    backgroundColor: "#33c4ff",
     paddingVertical: 12,
     paddingHorizontal: 25,
     borderRadius: 10,
