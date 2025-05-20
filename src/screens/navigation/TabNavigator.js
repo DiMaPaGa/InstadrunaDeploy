@@ -35,7 +35,7 @@ const TabNavigator = ({ userInfo, onLogout }) => {
           tabBarIcon: ({ focused }) => (
             <CustomTabBarIcon
               focused={focused}
-              activeIcon={require('../../../assets/images/publicaciones.png')}
+              activeIcon={require('../../../assets/images/publicacionesBlue.png')}
               inactiveIcon={require('../../../assets/images/publicacionesgris.png')}
               label="Home"
             />
@@ -58,7 +58,7 @@ const TabNavigator = ({ userInfo, onLogout }) => {
           tabBarIcon: ({ focused }) => (
             <CustomTabBarIcon
               focused={focused}
-              activeIcon={require('../../../assets/images/addg.png')}
+              activeIcon={require('../../../assets/images/addb.png')}
               inactiveIcon={require('../../../assets/images/addgris.png')}
               label="Agregar"
             />
@@ -82,7 +82,7 @@ const TabNavigator = ({ userInfo, onLogout }) => {
           tabBarIcon: ({ focused }) => (
             <CustomTabBarIcon
               focused={focused}
-              activeIcon={require('../../../assets/images/ajustes.png')}
+              activeIcon={require('../../../assets/images/AjustesBlue.png')}
               inactiveIcon={require('../../../assets/images/ajustesgris.png')}
               label="Ticket"
             />
@@ -96,7 +96,7 @@ const TabNavigator = ({ userInfo, onLogout }) => {
         tabBarIcon: ({ focused }) => (
           <CustomTabBarIcon
             focused={focused}
-            activeIcon={require('../../../assets/images/PerfilGreen.png')}
+            activeIcon={require('../../../assets/images/PerfilBlue.png')}
             inactiveIcon={require('../../../assets/images/PerfilGris.png')}
             label="Perfil"
           />
@@ -120,7 +120,7 @@ const TabNavigator = ({ userInfo, onLogout }) => {
           tabBarIcon: ({ focused }) => (
             <CustomTabBarIcon
               focused={focused}
-              activeIcon={require('../../../assets/images/PeopleGreen.png')} // Cambia por el ícono de sugerencias
+              activeIcon={require('../../../assets/images/PeopleBlue.png')} // Cambia por el ícono de sugerencias
               inactiveIcon={require('../../../assets/images/PeopleGris.png')} // Cambia por el ícono de sugerencias gris
               label="People"
             />
