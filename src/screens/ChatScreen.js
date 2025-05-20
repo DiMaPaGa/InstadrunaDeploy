@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   backButtonText: {
-    color: '#9FC63B',
+    color: '#33c4ff',
     fontSize: 16,
     fontFamily: 'AsapCondensed-Regular',
   },
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 16,
-    color: '#9FC63B',
+    color: '#33c4ff',
     alignSelf: 'center',
   },
   messageWrapper: {
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
   sendButton: {
     paddingVertical: 10,
     paddingHorizontal: 16,
-    backgroundColor: '#9FC63B',
+    backgroundColor: '#33c4ff',
     borderRadius: 22,
     justifyContent: 'center',
     alignItems: 'center',

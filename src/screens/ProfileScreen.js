@@ -181,7 +181,7 @@ const ProfileScreen = ({ route, onLogout }) => {
   }, [fetchUserData, navigation]);
 
   if (loading) {
-    return <ActivityIndicator size="large" color="#9FC63B" />;
+    return <ActivityIndicator size="large" color="#33c4ff" />;
   }
 
   return (
@@ -251,16 +251,16 @@ const ProfileScreen = ({ route, onLogout }) => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#323639', padding: 10 },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', paddingVertical: 20 },
-  profileImage: { width: 80, height: 80, borderRadius: 50, borderWidth: 3, borderColor: '#9FC63B' },
+  profileImage: { width: 80, height: 80, borderRadius: 50, borderWidth: 3, borderColor: '#33c4ff' },
   stats: { alignItems: 'center' },
   statNumber: { fontSize: 18, fontWeight: 'bold', color: '#DFDFDF' },
   statLabel: { fontSize: 12, color: '#868686' },
-  username: { textAlign: 'left', paddingHorizontal: '5%', fontSize: 20, fontWeight: 'bold', color: '#9FC63B' },
+  username: { textAlign: 'left', paddingHorizontal: '5%', fontSize: 20, fontWeight: 'bold', color: '#33c4ff' },
   email: { textAlign: 'left', paddingHorizontal: '5%', fontSize: 14, color: '#868686', textDecorationLine: 'underline' },
   filterButtons: { flexDirection: 'row', justifyContent: 'center', marginVertical: 10 },
   icon: { width: 30, height: 30, marginHorizontal: 20 },
   postImage: { width: 120, height: 120, margin: 2, borderWidth: 1, borderColor: '#DFDFDF' },
-  activeIcon: { tintColor: '#9FC63B' },
+  activeIcon: { tintColor: '#33c4ff' },
   flatListContentContainer: { paddingBottom: '15%' },
   logoutButton: { backgroundColor: '#ff4d4d', padding: 10, borderRadius: 5, marginTop: 10, alignSelf: 'center' },
   logoutText: { color: '#DFDFDF', fontSize: 16, fontWeight: 'bold' },

@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     width: 60,
   },
   iconLabelActive: {
-    color: '#9FC63B',
+    color: '#33c4ff',
   },
   iconLabelInactive: {
     color: '#868686',

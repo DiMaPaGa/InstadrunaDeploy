@@ -175,7 +175,7 @@ const SinglePublication = ({ route }) => {
               setModalVisible(true);
             }}
           >
-            <Text style={{ color: "#9FC63B", marginRight: 15 }}>Responder</Text>
+            <Text style={{ color: "#33c4ff", marginRight: 15 }}>Responder</Text>
           </TouchableOpacity>
           {item.userId === userId && (
             <TouchableOpacity onPress={() => handleEliminarComentario(item.id)}>
@@ -211,7 +211,7 @@ const SinglePublication = ({ route }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-        <Image source={require("../../assets/images/return.png")} style={styles.backIcon} />
+        <Image source={require("../../assets/images/returnBlue.png")} style={styles.backIcon} />
       </TouchableOpacity>
 
       <FlatList
@@ -229,14 +229,14 @@ const SinglePublication = ({ route }) => {
                 <Image source={
                     publicacion.imageUrl
                       ? { uri: publicacion.imageUrl }
-                      : require("../../assets/images/addpub.png")
+                      : require("../../assets/images/addpubb.png")
                   }
                   style={styles.publicationImage}
                 />
               <View style={styles.likesContainer}>
                 <TouchableOpacity onPress={handleLike}>
                   <Image
-                    source={userLiked ? require("../../assets/images/Favorite.png") : require("../../assets/images/FavoriteBorder.png")}
+                    source={userLiked ? require("../../assets/images/FavoriteBlue.png") : require("../../assets/images/FavoriteBorder.png")}
                     style={styles.likeIcon}
                   />
                 </TouchableOpacity>
@@ -264,7 +264,7 @@ const SinglePublication = ({ route }) => {
       />
 
       <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.addCommentButton}>
-        <Image source={require("../../assets/images/anadirMensaje.png")} style={styles.addCommentIcon} />
+        <Image source={require("../../assets/images/anadirMensajeBlue.png")} style={styles.addCommentIcon} />
       </TouchableOpacity>
 
       <Modal visible={modalVisible} transparent={true} animationType="slide">
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 100,
     borderWidth: 3,
-    borderColor: "#9FC63B",
+    borderColor: "#33c4ff",
     marginRight: 20,
     marginTop: "30%",
     marginBottom: "5%",
@@ -360,7 +360,7 @@ const styles = StyleSheet.create({
     height: 400,
     resizeMode: "cover",
     borderBottomWidth: 2,
-    borderBottomColor: "#9FC63B",
+    borderBottomColor: "#33c4ff",
   },
   likesContainer: {
     flexDirection: "row",
@@ -383,7 +383,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#9FC63B",
+    color: "#33c4ff",
     marginHorizontal: 15,
   },
   description: {
@@ -394,7 +394,7 @@ const styles = StyleSheet.create({
   commentsTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#9FC63B",
+    color: "#33c4ff",
     marginTop: 10,
     marginHorizontal: 15,
   },
@@ -406,7 +406,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 80,
     right: 20,
-    backgroundColor: "#9FC63B",
+    backgroundColor: "#33c4ff",
     borderRadius: 100,
   },
   addCommentIcon: {
@@ -430,7 +430,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#9FC63B",
+    color: "#33c4ff",
     marginBottom: 10,
   },
   input: {
@@ -446,7 +446,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   button: {
-    backgroundColor: "#9FC63B",
+    backgroundColor: "#33c4ff",
     borderRadius: 5,
     paddingVertical: 10,
     paddingHorizontal: 20,

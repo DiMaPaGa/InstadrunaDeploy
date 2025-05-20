@@ -4,7 +4,7 @@
     "slug": "instadruna",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/logo.png",
+    "icon": "./assets/images/logoBlue.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": false,
@@ -16,7 +16,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/logo.png",
+        "foregroundImage": "./assets/images/logoBlue.png",
         "backgroundColor": "#323639"
       },
       "package": "com.diana7.instadruna",
@@ -26,14 +26,14 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/logo.png"
+      "favicon": "./assets/images/logoBlue.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/logo.png",
+          "image": "./assets/images/logoBlue.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#323639"
@@ -49,7 +49,7 @@
       }
     },
     "notification": {
-      "icon": "./assets/images/logo.png",
+      "icon": "./assets/images/logoBlue.png",
       "color": "#000000"
     },
     "owner": "diana7",

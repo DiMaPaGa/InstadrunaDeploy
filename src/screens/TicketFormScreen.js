@@ -148,7 +148,7 @@ const uploadImageToCloudinary = async (uri) => {
             {imageUri ? (
             <Image source={{ uri: imageUri }} style={styles.imageIcon} />
             ) : (
-            <Image source={require('../../assets/images/addpub.png')} style={styles.imageIcon} />
+            <Image source={require('../../assets/images/addpubb.png')} style={styles.imageIcon} />
             )}
         </TouchableOpacity>
 
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontFamily: 'Rajdhani_600SemiBold',
-    color: '#9FC63B',
+    color: '#33c4ff',
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -226,11 +226,11 @@ const styles = StyleSheet.create({
     marginTop: "8%",
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: '#9FC63B',
+    borderColor: '#33c4ff',
   },
   label: {
     fontFamily: 'Rajdhani_400Regular',
-    color: '#9FC63B',
+    color: '#33c4ff',
     fontSize: 16,
     marginBottom: "3%",
     alignSelf: 'flex-start',
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#23272A',
-    borderColor: '#9FC63B',
+    borderColor: '#33c4ff',
     borderWidth: 2,
     padding: 10,
     borderRadius: 5,

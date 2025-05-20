@@ -81,7 +81,7 @@ const TicketScreen = () => {
   </View>
 
   {loading ? (
-    <ActivityIndicator size="large" color="#9FC63B" />
+    <ActivityIndicator size="large" color="#33c4ff" />
   ) : (
     <FlatList
       data={tickets}
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     fontFamily: "AsapCondensed-Bold",
     textTransform: "uppercase", 
     fontSize: width * 0.08, // Ajusta el tamaño para que no ocupe mucho espacio
-    color: "#9FC63B",
+    color: "#33c4ff",
     textAlign: 'center',
   },
   ticketCard: {
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase", 
     fontSize: width * 0.05,
     lineHeight: height * 0.03,
-    color: "#9FC63B", 
+    color: "#33c4ff", 
     marginHorizontal: 15,
   },
   ticketState: {
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     color: "#F10000", 
   },
   solucionado: {
-    color: "#9FC63B", 
+    color: "#33c4ff", 
   },
   createTicketButton: {
     position: "absolute",

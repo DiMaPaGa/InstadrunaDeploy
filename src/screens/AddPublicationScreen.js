@@ -106,7 +106,7 @@ const AddPublicationScreen = ({ route }) => {
       } else {
         // Si no hay imagen, usamos la imagen predeterminada
         console.log('Usando imagen predeterminada...');
-        const defaultImageUrl = 'https://res.cloudinary.com/dpqj4thfg/image/upload/v1744957782/addpub_use0xr.png';
+        const defaultImageUrl = '../../assets/images/addpubb.png';
         imageUrl = defaultImageUrl;
       }
   
@@ -175,7 +175,7 @@ const AddPublicationScreen = ({ route }) => {
       {/* Imagen seleccionada (clickeable) */}
       <TouchableOpacity onPress={handleImagePick}>
         <Image 
-          source={selectedImage ? { uri: selectedImage } : require('../../assets/images/addpub.png')} 
+          source={selectedImage ? { uri: selectedImage } : require('../../assets/images/addpubb.png')} 
           style={styles.imageIcon} 
         />
       </TouchableOpacity>
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontFamily: 'Rajdhani_600SemiBold',
-    color: '#9FC63B',
+    color: '#33c4ff',
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontFamily: 'Rajdhani_400Regular',
-    color: '#9FC63B',
+    color: '#33c4ff',
     fontSize: 16,
     marginBottom: 5,
   },
@@ -267,7 +267,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#23272A',
-    borderColor: '#9FC63B',
+    borderColor: '#33c4ff',
     borderWidth: 2,
     padding: 10,
     borderRadius: 5,
@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   selectedButton: {
-    backgroundColor: '#9FC63B',
+    backgroundColor: '#33c4ff',
   },
   privacyText: {
     color: '#DFDFDF',

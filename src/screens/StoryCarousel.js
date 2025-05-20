@@ -65,7 +65,7 @@ const StoryCarousel = ({ stories, onStoryPress }) => {
         },
         imageWrapper: {
           borderWidth: 3,
-          borderColor: '#9FC63B',
+          borderColor: '#33c4ff',
           borderRadius: 40,
           padding: 2,
         },

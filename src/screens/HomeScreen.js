@@ -243,7 +243,7 @@ const HomeScreen = ({ route, onLogout }) => {
         <Image
             source={item.imageUrl
               ? { uri: item.imageUrl }
-              : require("../../assets/images/addpub.png")}
+              : require("../../assets/images/addpubb.png")}
             style={styles.image}
           />
         </TouchableOpacity>
@@ -253,7 +253,7 @@ const HomeScreen = ({ route, onLogout }) => {
           <TouchableOpacity onPress={() => toggleLike(item.id)} style={styles.likeButton}>
             <Image
               source={item.hasLiked
-                ? require("../../assets/images/Favorite.png")
+                ? require("../../assets/images/FavoriteBlue.png")
                 : require("../../assets/images/FavoriteBorder.png")}
               style={styles.likeIcon}
             />
@@ -287,7 +287,7 @@ const HomeScreen = ({ route, onLogout }) => {
         <View style={styles.headerContainer}>
           <View style={styles.headerContent}>
             <View style={styles.logoContainer}>
-              <Image source={require('../../assets/images/logo.png')} style={styles.logo} />
+              <Image source={require('../../assets/images/logoBlue.png')} style={styles.logo} />
             </View>
             <View style={styles.textContainer}>
               <Text style={styles.nick}>{givenName}</Text>
@@ -446,7 +446,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     borderWidth: 2,
-    borderColor: '#9FC63B',
+    borderColor: '#33c4ff',
     marginRight: 10,
   },
   userTextContainer: {
@@ -477,7 +477,7 @@ const styles = StyleSheet.create({
     fontFamily: "AsapCondensed-Regular",
     fontSize: 24,
     fontWeight: "700",
-    color: "#9FC63B",
+    color: "#33c4ff",
     marginHorizontal: 15,
     marginTop: 10,
     textTransform: "uppercase",
@@ -517,13 +517,13 @@ const styles = StyleSheet.create({
   },
   addStoryText: {
     fontSize: 14,
-    color: "#9FC63B",
+    color: "#33c4ff",
     marginTop: 5,
     textAlign: 'center',
     fontFamily: "AsapCondensed-Regular",
   },
   logoutButton: {
-    backgroundColor: "#9FC63B",
+    backgroundColor: "#33c4ff",
     paddingHorizontal: 15,
     paddingVertical: 8,
     borderRadius: 25,

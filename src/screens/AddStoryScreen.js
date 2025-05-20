@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   header: {
-    color: '#9FC63B',
+    color: '#33c4ff',
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
   },
   submitBtn: {
-    backgroundColor: '#9FC63B',
+    backgroundColor: '#33c4ff',
     padding: 15,
     marginTop: 20,
     alignItems: 'center',

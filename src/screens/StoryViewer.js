@@ -96,7 +96,7 @@ const StoryViewer = () => {
   return (
     <View style={styles.fullScreen}>
       <TouchableOpacity onPress={handleBack} style={styles.backButton}>
-        <Ionicons name="chevron-back" size={30} color="#9FC63B" />
+        <Ionicons name="chevron-back" size={30} color="#33c4ff" />
       </TouchableOpacity>
 
       <Animated.View style={[styles.header, { opacity: fadeAnim }]}>
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
   },
   progressBar: {
     height: 4,
-    backgroundColor: '#9FC63B',
+    backgroundColor: '#33c4ff',
   },
   imageContainer: {
     width,
