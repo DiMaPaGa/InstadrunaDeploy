@@ -148,7 +148,7 @@ const uploadImageToCloudinary = async (uri) => {
             {imageUri ? (
             <Image source={{ uri: imageUri }} style={styles.imageIcon} />
             ) : (
-            <Image source={require('../../assets/images/addpubb.png')} style={styles.imageIcon} />
+            <Image source={require('../../assets/images/addpubB.png')} style={styles.imageIcon} />
             )}
         </TouchableOpacity>
 
