@@ -15,10 +15,7 @@ const StoryCarousel = ({ stories, onStoryPress, onAddStoryPress, currentUser}) =
           <TouchableOpacity onPress={onAddStoryPress} style={styles.storyItem}>
             <View style={styles.imageWrapper}>
               <Image
-                source={
-                  currentUser.profileImageUrl
-                    ? { uri: currentUser.profileImageUrl }
-                    : require('../../assets/images/iconUser.png')
+                source={require('../../assets/images/addb.png')
                 }
                 style={styles.storyImage}
               />
