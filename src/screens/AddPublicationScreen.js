@@ -175,11 +175,11 @@ const AddPublicationScreen = ({ route }) => {
       {/* Imagen seleccionada (clickeable) */}
       <TouchableOpacity onPress={handleImagePick}>
         <Image
-          source={
-            selectedImage
-              ? { uri: selectedImage }
-              : { uri: 'https://res.cloudinary.com/dpqj4thfg/image/upload/v1747764909/image_jqqo3e.png' }
-          }
+          source={{
+            uri: selectedImage?.trim()
+            ? selectedImage
+            : 'https://res.cloudinary.com/dpqj4thfg/image/upload/v1747764909/image_jqqo3e.png',
+          }}
           style={styles.imageIcon}
         />
       </TouchableOpacity>
