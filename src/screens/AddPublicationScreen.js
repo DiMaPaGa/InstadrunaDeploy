@@ -106,7 +106,7 @@ const AddPublicationScreen = ({ route }) => {
       } else {
         // Si no hay imagen, usamos la imagen predeterminada
         console.log('Usando imagen predeterminada...');
-        const defaultImageUrl = '../../assets/images/addpubB.png';
+        const defaultImageUrl = 'https://res.cloudinary.com/dpqj4thfg/image/upload/v1747764909/image_jqqo3e.png';
         imageUrl = defaultImageUrl;
       }
   
