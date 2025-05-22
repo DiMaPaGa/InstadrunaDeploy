@@ -121,11 +121,11 @@ const AddStoryScreen = ({ route }) => {
         <Text style={styles.uploadBtnText}>Seleccionar Imágenes</Text>
       </TouchableOpacity>
 
-      <ScrollView horizontal style={styles.previewContainer}>
+      <View style={styles.previewContainer}>
         {images.map((uri, idx) => (
           <Image key={idx} source={{ uri }} style={styles.previewImage} />
         ))}
-      </ScrollView>
+      </View>
 
       <TextInput
         style={styles.input}
@@ -166,13 +166,16 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   previewContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
+    gap: 10,
     marginTop: 15,
     marginBottom: 15,
   },
   previewImage: {
-    width: 100,
-    height: 100,
-    marginRight: 10,
+    width: '30%',
+    aspectRatio: 1,
     borderRadius: 8,
   },
   input: {
