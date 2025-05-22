@@ -171,6 +171,8 @@ const styles = StyleSheet.create({
   justifyContent: 'space-between',
   marginTop: 15,
   marginBottom: 15,
+  width: '100%',
+  minHeight: 100,
   },
   previewImage: {
     width: '32%', // 3 imágenes por fila con pequeño margen
