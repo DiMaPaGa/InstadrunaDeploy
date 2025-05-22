@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, ScrollView, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
+import { Dimensions } from 'react-native';
+
+const screenWidth = Dimensions.get('window').width;
+const imageSize = (screenWidth - 60) / 3;
 
 const AddStoryScreen = ({ route }) => {
   const { userId } = route.params || {}; // ID numérico del usuario
@@ -174,9 +178,9 @@ const styles = StyleSheet.create({
   marginBottom: 25,
   },
   previewImage: {
-  width: '30%',
-  aspectRatio: 1,
-  margin: 5, 
+  width: imageSize,
+  height: imageSize,
+  margin: 5,
   borderRadius: 8,
   backgroundColor: '#333',
   },
