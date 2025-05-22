@@ -226,7 +226,7 @@ const SinglePublication = ({ route }) => {
         </View>
       </View>
 
-      {/* FLATLIST */}
+
       <FlatList
         ListHeaderComponent={
           <>
@@ -324,15 +324,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   backButton: {
-    position: "absolute",
-    top: 60,
-    left: 20,
-    zIndex: 10,
+    marginRight: 15,
   },
-   backIcon: {
-    width: 20,
-    height: 30,
-    marginTop: "90%",
+  backIcon: {
+    width: 25,
+    height: 25,
   },
   headerUserContainer: {
     flexDirection: "row",
@@ -342,78 +338,65 @@ const styles = StyleSheet.create({
   avatar: {
     width: 50,
     height: 50,
-    borderRadius: 100,
-    borderWidth: 3,
-    borderColor: "#33c4ff",
-    marginRight: 20,
-    marginTop: "30%",
-    marginBottom: "5%",
+    borderRadius: 25,
   },
   userTextContainer: {
-    flex: 1,
-    marginTop: "30%",
-    marginBottom: "7%",
+    marginLeft: 15,
   },
   publishedBy: {
-    fontSize: 14,
-    color: "#DFDFDF",
+    fontSize: 11,
+    color: "#8A8A8A",
   },
   user_id: {
-    fontSize: 16,
+    fontSize: 18,
     color: "#33c4ff",
     fontWeight: "bold",
   },
   publicationContent: {
-    marginBottom: 30,
+    marginBottom: 10,
   },
   publicationImage: {
-    width: screenWidth,
-    height: 400,
+    width: screenWidth - 20,
+    height: 300,
+    borderRadius: 20,
     resizeMode: "cover",
-    borderBottomWidth: 2,
-    borderBottomColor: "#33c4ff",
   },
   likesContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: 15,
-    marginTop: 10,
+    marginVertical: 10,
   },
   likeIcon: {
-    width: 20,
-    height: 20,
-    marginRight: 5,
+    width: 30,
+    height: 30,
+    marginRight: 10,
   },
   likesText: {
     color: "#33c4ff",
-    fontSize: 14,
+    fontWeight: "bold",
   },
   publicationText: {
-    marginTop: 20,
+    marginBottom: 10,
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
     color: "#33c4ff",
-    marginHorizontal: 15,
   },
   description: {
     fontSize: 16,
-    color: "#DFDFDF",
-    marginLeft: 15,
+    color: "#fff",
   },
   timeAgo: {
-    fontSize: 12,
-    color: "#868686",
-    marginLeft: 15,
-    marginTop: 10,
+    fontSize: 14,
+    color: "#8A8A8A",
+    marginBottom: 15,
   },
   commentsTitle: {
-     fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
     color: "#33c4ff",
-    marginTop: 10,
-    marginHorizontal: 15,
+    marginVertical: 10,
   },
   commentItem: {
     flexDirection: "row",
@@ -430,64 +413,73 @@ const styles = StyleSheet.create({
   },
   commentUser: {
     fontWeight: "bold",
-    color: "#DFDFDF",
+    color: "#33c4ff",
   },
   commentContent: {
-    fontSize: 14,
-    color: "#DFDFDF",
+    color: "#fff",
   },
   noComments: {
-    color: "#868686",
-    marginHorizontal: 15,
+    color: "#fff",
+    fontStyle: "italic",
+    textAlign: "center",
+    marginTop: 20,
+  },
+  addCommentButton: {
+    position: "absolute",
+    bottom: 30,
+    right: 30,
+    backgroundColor: "#323639",
+    borderRadius: 30,
+    padding: 10,
+    elevation: 5,
   },
   addCommentIcon: {
-    width: 50,
-    height: 50,
-    borderRadius: 100,
-    paddingLeft: 10,
+    width: 30,
+    height: 30,
   },
-    modalContainer: {
+  modalContainer: {
     flex: 1,
+    backgroundColor: "rgba(0,0,0,0.7)",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
-    width: screenWidth - 40,
+    backgroundColor: "#222",
     padding: 20,
-    backgroundColor: "#1B1C1B",
-    borderRadius: 10,
+    borderRadius: 15,
+    width: "90%",
   },
   modalTitle: {
     fontSize: 18,
-    fontWeight: "bold",
     color: "#33c4ff",
     marginBottom: 10,
   },
   input: {
-    backgroundColor: "#2E2F2E",
-    color: "#DFDFDF",
-    height: 120,
+    height: 100,
+    backgroundColor: "#333",
+    color: "#fff",
+    padding: 10,
     borderRadius: 10,
-    paddingHorizontal: 10,
-    marginBottom: 10,
+    textAlignVertical: "top",
   },
   modalButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginTop: 15,
   },
   button: {
-    backgroundColor: "#33c4ff",
-    borderRadius: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    padding: 10,
+    backgroundColor: "#555",
+    borderRadius: 10,
+    width: "48%",
+    alignItems: "center",
   },
   buttonActive: {
-    backgroundColor: "#fff",
+    backgroundColor: "#33c4ff",
   },
   buttonText: {
     color: "#fff",
-    fontWeight: 16,
+    fontWeight: "bold",
   },
 });
 

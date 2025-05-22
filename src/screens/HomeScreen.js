@@ -212,7 +212,7 @@ const HomeScreen = ({ route, onLogout }) => {
         throw new Error(`Error al actualizar like: ${errorText}`);
       }
   
-      await fetchPublicaciones();
+      //await fetchPublicaciones();
     } catch (error) {
       console.error("Error al modificar like:", error);
       Alert.alert("Error", error.message);
