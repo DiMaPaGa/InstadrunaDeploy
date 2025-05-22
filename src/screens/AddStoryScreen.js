@@ -157,19 +157,20 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   uploadBtn: {
-    backgroundColor: '#323639',
+    backgroundColor: '#33c4ff',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
   },
   uploadBtnText: {
-    color: '#fff',
+    color: '#333',
   },
   previewContainer: {
   flexDirection: 'row',
   flexWrap: 'wrap',
   justifyContent: 'space-between',
   marginTop: 15,
+  marginBottom: 25,
   },
   previewImage: {
   width: '30%',
@@ -194,7 +195,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   submitText: {
-    color: '#000',
+    color: '#333',
     fontWeight: 'bold',
   },
 });
