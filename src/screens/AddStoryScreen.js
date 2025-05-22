@@ -168,12 +168,13 @@ const styles = StyleSheet.create({
   previewContainer: {
   flexDirection: 'row',
   flexWrap: 'wrap',
-  justifyContent: 'flex-start',
+  justifyContent: 'space-between',
+  marginTop: 15,
   },
   previewImage: {
-  width: 100,
-  height: 100,
-  margin: 5,
+  width: '30%',
+  aspectRatio: 1,
+  marginBottom: 10, 
   borderRadius: 8,
   backgroundColor: '#333',
   },
