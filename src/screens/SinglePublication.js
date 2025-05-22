@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#323639",
-    padding: 5,
+    padding: 2,
   },
   fixedHeader: {
     position: "absolute",
@@ -387,17 +387,21 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#33c4ff",
     marginHorizontal: 15,
+    marginTop: 10,
+    marginBottom: 10,
   },
   description: {
     fontSize: 16,
     color: "#DFDFDF",
     marginLeft: 15,
+    marginTop: 10,
   },
   timeAgo: {
     fontSize: 12,
     color: "#868686",
     marginBottom: 15,
     marginTop: 10,
+    marginLeft: 15, 
   },
   commentsTitle: {
     fontSize: 20,
