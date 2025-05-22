@@ -159,6 +159,7 @@ const SuggestedUsersScreen = ({ route }) => {
           setHasMore(true);
         }}
         style={styles.input}
+        placeholderTextColor="#888"
       />
 
       <FlatList
@@ -167,28 +168,37 @@ const SuggestedUsersScreen = ({ route }) => {
         renderItem={renderItem}
         onEndReached={() => buscarUsuarios()}
         onEndReachedThreshold={0.3}
-        ListFooterComponent={loading && <ActivityIndicator />}
+        ListFooterComponent={loading && <ActivityIndicator color="#33c4ff" />}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, backgroundColor: '#fff' },
+  container: { 
+    flex: 1, 
+    padding: 16, 
+    backgroundColor: '#23272A' },
   input: {
     height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 10,
+    backgroundColor: '#323639',  // Fondo input oscuro
+    borderRadius: 20,
+    paddingHorizontal: 20,
+    color: '#DFDFDF',
+    fontSize: 16,
     marginBottom: 10,
+    shadowColor: '#33c4ff',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 8,
+    elevation: 5,
   },
   usuarioItem: {
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 8,
     paddingVertical: 10,
-    borderBottomColor: '#ccc',
+    borderBottomColor: '#444',
     borderBottomWidth: 1,
   },
   avatar: {
@@ -196,9 +206,12 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     marginRight: 10,
+    borderWidth: 1,
+    borderColor: '#33c4ff',
   },
   nombre: {
     fontWeight: 'bold',
+    color: '#DFDFDF', 
   },
   btnVerde: {
     marginTop: 4,
@@ -248,7 +261,7 @@ const styles = StyleSheet.create({
   accionText: {
     marginTop: 4,
     fontSize: 12,
-    color: '#999',
+    color: '#888',
   },
 });
 
