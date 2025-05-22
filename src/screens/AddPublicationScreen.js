@@ -176,11 +176,13 @@ const AddPublicationScreen = ({ route }) => {
       <TouchableOpacity onPress={handleImagePick}>
         <Image
           source={{
-            uri: selectedImage?.trim()
-            ? selectedImage
-            : 'https://res.cloudinary.com/dpqj4thfg/image/upload/v1747764909/image_jqqo3e.png',
+            uri:
+              selectedImage && typeof selectedImage === 'string' && selectedImage.trim() !== ''
+                ? selectedImage
+                : 'https://res.cloudinary.com/dpqj4thfg/image/upload/v1747764909/image_jqqo3e.png',
           }}
           style={styles.imageIcon}
+          onError={(e) => console.log('Error al cargar imagen:', e.nativeEvent.error)}
         />
       </TouchableOpacity>
 
