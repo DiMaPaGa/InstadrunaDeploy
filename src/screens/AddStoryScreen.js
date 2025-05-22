@@ -175,7 +175,9 @@ const styles = StyleSheet.create({
   previewImage: {
   width: '30%',
   aspectRatio: 1,
-  marginBottom: 10, 
+  marginBottom: 10,
+  height: 100,
+  margin: 5, 
   borderRadius: 8,
   backgroundColor: '#333',
   },
