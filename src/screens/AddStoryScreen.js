@@ -164,6 +164,7 @@ const styles = StyleSheet.create({
   },
   uploadBtnText: {
     color: '#333',
+    fontWeight: 'bold',
   },
   previewContainer: {
   flexDirection: 'row',
@@ -175,8 +176,6 @@ const styles = StyleSheet.create({
   previewImage: {
   width: '30%',
   aspectRatio: 1,
-  marginBottom: 10,
-  height: 100,
   margin: 5, 
   borderRadius: 8,
   backgroundColor: '#333',
