@@ -208,23 +208,29 @@ const SinglePublication = ({ route }) => {
   if (loading) return <Text>Cargando publicación...</Text>;
   if (!publicacion) return <Text>Error al cargar la publicación.</Text>;
 
-  return (
+   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-        <Image source={require("../../assets/images/returnBlue.png")} style={styles.backIcon} />
-      </TouchableOpacity>
 
+      {/* HEADER FIJO */}
+      <View style={styles.fixedHeader}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+          <Image source={require("../../assets/images/returnBlue.png")} style={styles.backIcon} />
+        </TouchableOpacity>
+
+        <View style={styles.headerUserContainer}>
+          <Image source={author && author.profileImageUrl ? { uri: author.profileImageUrl } : require("../../assets/images/iconUser.png")} style={styles.avatar} />
+          <View style={styles.userTextContainer}>
+            <Text style={styles.publishedBy}>Publicado por</Text>
+            <Text style={styles.user_id}>{author ? author.givenName : ''}</Text>
+          </View>
+        </View>
+      </View>
+
+      {/* FLATLIST */}
       <FlatList
         ListHeaderComponent={
           <>
-            <View style={styles.headerUserContainer}>
-              <Image source={author && author.profileImageUrl ? { uri: author.profileImageUrl } : require("../../assets/images/iconUser.png")} style={styles.avatar} />
-              <View style={styles.userTextContainer}>
-                <Text style={styles.publishedBy}>Publicado por</Text>
-                <Text style={styles.user_id}>{author ? author.givenName : ''}</Text>
-              </View>
-            </View>
-
+            <View style={{ height: 140 }} /> {/* Espacio para el header fijo */}
             <View style={styles.publicationContent}>
                 <Image source={
                     publicacion.imageUrl
@@ -304,184 +310,177 @@ const styles = StyleSheet.create({
     backgroundColor: "#323639",
     padding: 10,
   },
-  backButton: {
+  fixedHeader: {
     position: "absolute",
-    top: 60,
-    left: 20,
-    zIndex: 10,
+    top: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "#323639",
+    paddingTop: 60,
+    paddingHorizontal: 20,
+    paddingBottom: 10,
+    zIndex: 999,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  backButton: {
+    marginRight: 15,
   },
   backIcon: {
-    width: 20,
-    height: 30,
-    marginTop: "90%",
+    width: 25,
+    height: 25,
   },
   headerUserContainer: {
     flexDirection: "row",
-    marginBottom: 0,
-    paddingVertical: 0,
-    paddingHorizontal: "20%",
     alignItems: "center",
+    flex: 1,
   },
   avatar: {
     width: 50,
     height: 50,
-    borderRadius: 100,
-    borderWidth: 3,
-    borderColor: "#33c4ff",
-    marginRight: 20,
-    marginTop: "30%",
-    marginBottom: "5%",
+    borderRadius: 25,
   },
   userTextContainer: {
-    flex: 1,
-    marginTop: "30%",
-    marginBottom: "7%",
+    marginLeft: 15,
   },
   publishedBy: {
-    fontSize: 14,
-    color: "#DFDFDF",
+    fontSize: 11,
+    color: "#8A8A8A",
   },
   user_id: {
-    fontSize: 16,
-    color: "#DFDFDF",
+    fontSize: 18,
+    color: "#33c4ff",
     fontWeight: "bold",
   },
-  timeAgo: {
-    fontSize: 12,
-    color: "#868686",
-    marginLeft: 15,
-    marginTop: 10,
-  },
   publicationContent: {
-    marginBottom: 30,
+    marginBottom: 10,
   },
   publicationImage: {
-    width: screenWidth,
-    height: 400,
+    width: screenWidth - 20,
+    height: 300,
+    borderRadius: 20,
     resizeMode: "cover",
-    borderBottomWidth: 2,
-    borderBottomColor: "#33c4ff",
   },
   likesContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: 15,
-    marginTop: 10,
+    marginVertical: 10,
   },
   likeIcon: {
-    width: 20,
-    height: 20,
-    marginRight: 5,
+    width: 30,
+    height: 30,
+    marginRight: 10,
   },
   likesText: {
-    fontSize: 14,
-    color: "#DFDFDF",
+    color: "#33c4ff",
+    fontWeight: "bold",
   },
   publicationText: {
-    marginTop: 20,
+    marginBottom: 10,
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
     color: "#33c4ff",
-    marginHorizontal: 15,
   },
   description: {
     fontSize: 16,
-    color: "#DFDFDF",
-    marginLeft: 15,
+    color: "#fff",
+  },
+  timeAgo: {
+    fontSize: 14,
+    color: "#8A8A8A",
+    marginBottom: 15,
   },
   commentsTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#33c4ff",
-    marginTop: 10,
-    marginHorizontal: 15,
-  },
-  noComments: {
-    color: "#868686",
-    marginHorizontal: 15,
-  },
-  addCommentButton: {
-    position: "absolute",
-    bottom: 80,
-    right: 20,
-    backgroundColor: "#33c4ff",
-    borderRadius: 100,
-  },
-  addCommentIcon: {
-    width: 50,
-    height: 50,
-    borderRadius: 100,
-    paddingLeft: 10,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  modalContent: {
-    width: screenWidth - 40,//andes"80%""
-    padding: 20,
-    backgroundColor: "#1B1C1B",
-    borderRadius: 10,
-  },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#33c4ff",
-    marginBottom: 10,
-  },
-  input: {
-    backgroundColor: "#2E2F2E",
-    color: "#DFDFDF",
-    height: 120,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    marginBottom: 10,
-  },
-  modalButtons: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  button: {
-    backgroundColor: "#33c4ff",
-    borderRadius: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-  },
-  buttonActive: {
-    backgroundColor: "#6B8E23",
-  },
-  buttonText: {
-    color: "#FFF",
     fontSize: 16,
+    fontWeight: "bold",
+    color: "#33c4ff",
+    marginVertical: 10,
   },
   commentItem: {
     flexDirection: "row",
-    marginBottom: 10,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+    marginBottom: 15,
   },
   commentAvatar: {
     width: 40,
     height: 40,
-    borderRadius: 50,
-    marginRight: 10,
+    borderRadius: 20,
   },
   commentText: {
     flex: 1,
+    marginLeft: 10,
   },
   commentUser: {
     fontWeight: "bold",
-    color: "#DFDFDF",
+    color: "#33c4ff",
   },
   commentContent: {
-    fontSize: 14,
-    color: "#DFDFDF",
+    color: "#fff",
+  },
+  noComments: {
+    color: "#fff",
+    fontStyle: "italic",
+    textAlign: "center",
+    marginTop: 20,
+  },
+  addCommentButton: {
+    position: "absolute",
+    bottom: 30,
+    right: 30,
+    backgroundColor: "#323639",
+    borderRadius: 30,
+    padding: 10,
+    elevation: 5,
+  },
+  addCommentIcon: {
+    width: 30,
+    height: 30,
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.7)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContent: {
+    backgroundColor: "#222",
+    padding: 20,
+    borderRadius: 15,
+    width: "90%",
+  },
+  modalTitle: {
+    fontSize: 18,
+    color: "#33c4ff",
+    marginBottom: 10,
+  },
+  input: {
+    height: 100,
+    backgroundColor: "#333",
+    color: "#fff",
+    padding: 10,
+    borderRadius: 10,
+    textAlignVertical: "top",
+  },
+  modalButtons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 15,
+  },
+  button: {
+    padding: 10,
+    backgroundColor: "#555",
+    borderRadius: 10,
+    width: "48%",
+    alignItems: "center",
+  },
+  buttonActive: {
+    backgroundColor: "#33c4ff",
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
   },
 });
 
 export default SinglePublication;
-
