@@ -166,16 +166,16 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   previewContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'flex-start',
-    gap: 10,
-    marginTop: 15,
-    marginBottom: 15,
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  justifyContent: 'space-between',
+  marginTop: 15,
+  marginBottom: 15,
   },
   previewImage: {
-    width: '30%',
+    width: '32%', // 3 imágenes por fila con pequeño margen
     aspectRatio: 1,
+    marginBottom: 10,
     borderRadius: 8,
   },
   input: {
