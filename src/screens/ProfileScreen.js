@@ -249,7 +249,7 @@ const ProfileScreen = ({ route, onLogout }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#323639', padding: 10 },
+  container: { flex: 1, backgroundColor: '#23272A', padding: 10 },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', paddingVertical: 20 },
   profileImage: { width: 80, height: 80, borderRadius: 50, borderWidth: 3, borderColor: '#33c4ff' },
   stats: { alignItems: 'center' },
