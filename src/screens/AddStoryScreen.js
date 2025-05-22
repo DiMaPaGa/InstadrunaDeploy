@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   previewContainer: {
-  lexDirection: 'row',
+  flexDirection: 'row',
   flexWrap: 'wrap',
   justifyContent: 'flex-start',
   },
