@@ -153,7 +153,7 @@ const uploadImageToCloudinary = async (uri) => {
         </TouchableOpacity>
 
         {/* Botones secundarios */}
-        <View style={{ flexDirection: 'row', marginTop: 10 }}>
+        <View style={{ flexDirection: 'row', marginTop: 10, marginBottom: 20 }}>
             <TouchableOpacity onPress={handlePickImageFromLibrary} style={styles.secondaryButton}>
             <Text style={styles.secondaryButtonText}>Galería</Text>
             </TouchableOpacity>
