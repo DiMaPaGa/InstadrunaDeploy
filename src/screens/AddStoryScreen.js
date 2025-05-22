@@ -123,7 +123,7 @@ const AddStoryScreen = ({ route }) => {
 
       <View style={styles.previewContainer}>
         {images.map((uri, idx) => (
-          <Image key={idx} source={{ uri }} style={styles.previewImage} />
+          <Image key={idx} source={{ uri }} style={styles.previewImage} resizeMode="cover"/>
         ))}
       </View>
 
@@ -168,17 +168,17 @@ const styles = StyleSheet.create({
   previewContainer: {
   flexDirection: 'row',
   flexWrap: 'wrap',
-  justifyContent: 'space-between',
+  margin: 10,
+  justifyContent: 'flex-start',
   marginTop: 15,
   marginBottom: 15,
-  width: '100%',
-  minHeight: 100,
   },
   previewImage: {
-    width: '32%', // 3 imágenes por fila con pequeño margen
-    aspectRatio: 1,
-    marginBottom: 10,
-    borderRadius: 8,
+  width: '30%',
+  aspectRatio: 1,
+  margin: '1.5%',
+  borderRadius: 8,
+  backgroundColor: '#333',
   },
   input: {
     backgroundColor: '#323639',
