@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
-import { CHAT_SOCKET_URL } from '../constants/env';
+import { CHAT_SOCKET_URL } from '@env';
 
 const useChatSocket = (userId, otherUserId, username) => {
   const [messages, setMessages] = useState([]);

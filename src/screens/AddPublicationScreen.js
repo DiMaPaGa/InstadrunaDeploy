@@ -8,7 +8,7 @@ import {
   CLOUDINARY_UPLOAD_URL,
   DEFAULT_IMAGE_URL,
   PUBLICACIONES_API_URL,
-} from '../constants/env';
+} from '@env';
 
 
 const AddPublicationScreen = ({ route }) => {

@@ -16,7 +16,7 @@ import PropTypes from "prop-types";
 import { useNavigation } from '@react-navigation/native';
 import StoryCarousel from "./StoryCarousel";
 import { useFocusEffect } from '@react-navigation/native';
-import { API_URL, USER_API_URL, STORIES_API_URL} from "../constants/env";
+import { API_URL, USER_API_URL, STORIES_API_URL} from '@env';
 
 // Crear un FlatList animado
 const AnimatedFlatList = Animated.createAnimatedComponent(RNFlatList);

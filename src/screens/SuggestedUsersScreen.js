@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, TextInput, FlatList, Text, Image, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { API_URL } from "../constants/env";
+import { API_URL } from '@env';
 
 
 const SuggestedUsersScreen = ({ route }) => {

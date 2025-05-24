@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { Ionicons } from '@expo/vector-icons';
-import { CLOUDINARY_UPLOAD_PRESET, CLOUDINARY_CLOUD_NAME, API_URL } from "../constants/env";
+import { CLOUDINARY_UPLOAD_PRESET, CLOUDINARY_CLOUD_NAME, API_URL } from '@env';
 
 
 

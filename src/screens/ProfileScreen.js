@@ -7,7 +7,7 @@ import {
   CLOUDINARY_UPLOAD_PRESET, 
   CLOUDINARY_CLOUD_NAME, 
   API_URL 
-} from '../constants/env';
+} from '@env';
 
 
 const ProfileScreen = ({ route, onLogout }) => {

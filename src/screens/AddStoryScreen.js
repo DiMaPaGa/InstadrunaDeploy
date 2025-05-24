@@ -7,7 +7,7 @@ import {
   STORIES_API_URL, 
   CLOUDINARY_UPLOAD_PRESET, 
   CLOUDINARY_CLOUD_NAME, 
-  CLOUDINARY_UPLOAD_URL} from '../constants/env';
+  CLOUDINARY_UPLOAD_URL} from '@env';
 
 const screenWidth = Dimensions.get('window').width;
 const imageSize = (screenWidth - 60) / 3;

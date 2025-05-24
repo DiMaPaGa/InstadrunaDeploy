@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, Button, FlatList, Image, StyleSheet, TouchableOpacity, Modal } from "react-native";
 import { Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { API_URL } from "../constants/env";
+import { API_URL } from '@env';
 
 const screenWidth = Dimensions.get("window").width;
 
