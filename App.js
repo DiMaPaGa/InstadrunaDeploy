@@ -3,9 +3,15 @@ import { View, ActivityIndicator } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import StackNavigator from "./src/screens/navigation/StackNavigator"; // Importa el StackNavigator
+import StackNavigator from "./src/screens/navigation/StackNavigator"; 
 import LoginScreen from "./src/screens/LoginScreen";
 import usePushNotifications from "./src/hooks/usePushNotifications";
+import {
+  API_URL,
+  USER_API_URL,
+  GOOGLE_WEB_CLIENT_ID,
+  GOOGLE_ANDROID_CLIENT_ID
+} from "./src/constants/env";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -13,8 +19,8 @@ export default function App() {
   const [userInfo, setUserInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [request, response, promptAsync] = Google.useAuthRequest({
-    webClientId: "188317837825-1uf718jet4ijsukqttitkj6v0bg831rc.apps.googleusercontent.com",
-    androidClientId: "188317837825-cudcnpnjl9bmnicr43r4ga3euc00bejs.apps.googleusercontent.com",
+    webClientId: GOOGLE_WEB_CLIENT_ID,
+    androidClientId: GOOGLE_ANDROID_CLIENT_ID,
   });
 
   const { expoPushToken } = usePushNotifications();
@@ -69,7 +75,7 @@ export default function App() {
         profileImageUrl: user.picture,
       });
 
-      const response = await fetch('http://51.120.11.157:8080/api/usuarios', {
+      const response = await fetch(`${USER_API_URL}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -109,7 +115,7 @@ export default function App() {
       console.log("userId:", userId);
       console.log("expoPushToken:", expoPushToken);
       // Hacer una llamada POST para registrar el dispositivo
-      const response = await fetch('http://51.120.11.157:8080/api/dispositivos/registrar', {
+      const response = await fetch(`${API_URL}/dispositivos/registrar`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

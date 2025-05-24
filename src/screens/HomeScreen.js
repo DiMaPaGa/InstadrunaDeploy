@@ -16,13 +16,10 @@ import PropTypes from "prop-types";
 import { useNavigation } from '@react-navigation/native';
 import StoryCarousel from "./StoryCarousel";
 import { useFocusEffect } from '@react-navigation/native';
+import { API_URL, USER_API_URL, STORIES_API_URL } from "../../constants/env";
 
 // Crear un FlatList animado
 const AnimatedFlatList = Animated.createAnimatedComponent(RNFlatList);
-
-const API_URL = "http://51.120.11.157:8080/api";
-const USER_API_URL = "http://51.120.11.157:8080/api/usuarios";
-const STORIES_API_URL = "http://51.120.11.157:8080/api/historias"; 
 
 const { width } = Dimensions.get("window");
 const fontSize = width * 0.1;  
@@ -86,7 +83,7 @@ const HomeScreen = ({ route, onLogout }) => {
 
   const fetchUserData = async (userId) => {
     try {
-      const response = await fetch(`${USER_API_URL }/${userId}`); // Aquí deberías poner tu URL para obtener los detalles del usuario
+      const response = await fetch(`${USER_API_URL}/${userId}`); // Aquí deberías poner tu URL para obtener los detalles del usuario
       if (!response.ok) {
         throw new Error(`Error al obtener datos del usuario: ${response.statusText}`);
       }
@@ -212,7 +209,7 @@ const HomeScreen = ({ route, onLogout }) => {
         throw new Error(`Error al actualizar like: ${errorText}`);
       }
   
-      //await fetchPublicaciones();
+
     } catch (error) {
       console.error("Error al modificar like:", error);
       Alert.alert("Error", error.message);

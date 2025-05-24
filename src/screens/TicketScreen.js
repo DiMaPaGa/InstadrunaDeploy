@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity, Image, Dimensions, Animated } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { API_URL } from "../../constants/env"; 
 
-const API_URL = `http://51.120.11.157:8080/api/tickets/usuario`;
 
 const { width, height } = Dimensions.get("window");
 
@@ -18,7 +18,7 @@ const TicketScreen = () => {
   const fetchTickets = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${API_URL}/${userId}/ordenados`);
+      const response = await fetch(`${API_URL}/tickets/usuario/${userId}/ordenados`);
       if (!response.ok) {
         throw new Error("Error al obtener los tickets");
       }

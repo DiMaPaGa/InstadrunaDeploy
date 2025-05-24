@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, Image, ScrollView, StyleSheet,
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import { Dimensions } from 'react-native';
+import { STORIES_API_URL, CLOUDINARY_UPLOAD_PRESET, CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_URL } from '../constants/env';
 
 const screenWidth = Dimensions.get('window').width;
 const imageSize = (screenWidth - 60) / 3;
@@ -48,10 +49,10 @@ const AddStoryScreen = ({ route }) => {
   const uploadToCloudinary = async (uri) => {
     const formData = new FormData();
     formData.append('file', { uri, name: 'image.jpg', type: 'image/jpeg' });
-    formData.append('upload_preset', 'ml_default');
-    formData.append('cloud_name', 'dpqj4thfg');
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+    formData.append('cloud_name', CLOUDINARY_CLOUD_NAME);
 
-    const res = await fetch('https://api.cloudinary.com/v1_1/dpqj4thfg/image/upload', {
+    const res = await fetch(CLOUDINARY_UPLOAD_URL, {
       method: 'POST',
       body: formData,
     });
@@ -82,7 +83,7 @@ const AddStoryScreen = ({ route }) => {
       console.log('URLs de imágenes:', uploadedUrls);
       console.log('Payload final:', JSON.stringify(payload, null, 2));
 
-      const res = await fetch('http://51.120.11.157:8080/api/historias', {
+      const res = await fetch(STORIES_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

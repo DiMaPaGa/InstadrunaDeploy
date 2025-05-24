@@ -3,9 +3,12 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList, Alert, Activ
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 
-const CLOUDINARY_UPLOAD_PRESET = 'ml_default';
-const CLOUDINARY_CLOUD_NAME = 'dpqj4thfg';
-const API_HOST = 'http://51.120.11.157:8080/api';
+import { 
+  CLOUDINARY_UPLOAD_PRESET, 
+  CLOUDINARY_CLOUD_NAME, 
+  API_URL 
+} from '../constants/env';
+
 
 const ProfileScreen = ({ route, onLogout }) => {
   const { userId, givenName, email, profileImageUrl } = route.params || {};
@@ -107,7 +110,7 @@ const ProfileScreen = ({ route, onLogout }) => {
 
   const updateProfileImage = async (imageUrl) => {
     try {
-      const response = await fetch(`${API_HOST}/usuarios/${userId}`, {
+      const response = await fetch(`${API_URL}/usuarios/${userId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ profile_picture: imageUrl }),
@@ -128,7 +131,7 @@ const ProfileScreen = ({ route, onLogout }) => {
   const fetchUserData = useCallback(async () => {
     try {
       setLoading(true);
-      const userResponse = await fetch(`${API_HOST}/usuarios/${userId}`);
+      const userResponse = await fetch(`${API_URL}/usuarios/${userId}`);
       const userData = await userResponse.json();
   
       if (userData.profileImageUrl) {
@@ -136,13 +139,13 @@ const ProfileScreen = ({ route, onLogout }) => {
         navigation.setParams({ profileImageUrl: userData.profileImageUrl });
       }
   
-      const postsResponse = await fetch(`${API_HOST}/publicaciones/user/${userId}`);
+      const postsResponse = await fetch(`${API_URL}/publicaciones/user/${userId}`);
       const postsData = await postsResponse.json();
       if (Array.isArray(postsData)) {
         setPosts(postsData.reverse());
       }
   
-      const likedPostsResponse = await fetch(`${API_HOST}/publicaciones/likes/${userId}`);
+      const likedPostsResponse = await fetch(`${API_URL}/publicaciones/likes/${userId}`);
       const likedPostsData = await likedPostsResponse.json();
       if (Array.isArray(likedPostsData)) {
         setLikedPosts(likedPostsData.reverse());
@@ -157,8 +160,8 @@ const ProfileScreen = ({ route, onLogout }) => {
   const obtenerConteos = async () => {
     try {
       const [resSeguidores, resSeguidos] = await Promise.all([
-        fetch(`${API_HOST}/seguidores/contar-seguidores/${userId}?estado=ACEPTADO`),
-        fetch(`${API_HOST}/seguidores/contar-seguidos/${userId}?estado=ACEPTADO`)
+        fetch(`${API_URL}/seguidores/contar-seguidores/${userId}?estado=ACEPTADO`),
+        fetch(`${API_URL}/seguidores/contar-seguidos/${userId}?estado=ACEPTADO`)
       ]);
   
       const totalSeguidores = await resSeguidores.json();

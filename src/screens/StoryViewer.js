@@ -14,7 +14,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 
 const { width, height } = Dimensions.get('window');
-const STORY_DURATION = 3000; // 3 segundos
+const STORY_DURATION = 3000;
 
 const StoryViewer = () => {
   const route = useRoute();

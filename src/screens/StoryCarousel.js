@@ -66,8 +66,8 @@ const StoryCarousel = ({ stories, onStoryPress, onAddStoryPress, currentUser}) =
           paddingVertical: 10,
         },
         carouselContent: {
-          flexDirection: 'row',  // Esto asegura que los elementos se alineen horizontalmente
-          paddingVertical: 5,    // Esto da un poco de espacio en los lados
+          flexDirection: 'row',  
+          paddingVertical: 5,    
         },
         storyItem: {
           alignItems: 'center',

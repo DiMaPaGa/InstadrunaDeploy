@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
+import { CHAT_SOCKET_URL } from '../constants/env';
 
 const useChatSocket = (userId, otherUserId, username) => {
   const [messages, setMessages] = useState([]);
   const socketRef = useRef(null);
 
   useEffect(() => {
-    const socket = io('http://51.120.11.157:3000', {
+    const socket = io(CHAT_SOCKET_URL, {
       auth: { userId, otherUserId, username },
     });
 

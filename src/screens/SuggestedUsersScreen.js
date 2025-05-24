@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, TextInput, FlatList, Text, Image, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { API_URL } from "../../constants/env";
 
-const API_URL = 'http://51.120.11.157:8080/api';
 
 const SuggestedUsersScreen = ({ route }) => {
   const { userId, givenName } = route.params;

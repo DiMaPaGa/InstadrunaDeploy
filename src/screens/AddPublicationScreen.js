@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Alert, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
+import {
+  CLOUDINARY_UPLOAD_PRESET,
+  CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_UPLOAD_URL,
+  DEFAULT_IMAGE_URL,
+  PUBLICACIONES_API_URL,
+} from '../constants/env';
 
 
 const AddPublicationScreen = ({ route }) => {
@@ -11,7 +18,7 @@ const AddPublicationScreen = ({ route }) => {
   const [comment, setComment] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [privacy, setPrivacy] = useState('PUBLICA'); // Estado para la privacidad
+  const [privacy, setPrivacy] = useState('PUBLICA'); 
 
 
 
@@ -73,11 +80,11 @@ const AddPublicationScreen = ({ route }) => {
   const uploadImageToCloudinary = async (imageUri) => {
     const formData = new FormData();
     formData.append('file', { uri: imageUri, name: 'image.jpg', type: 'image/jpeg' });
-    formData.append('upload_preset', 'ml_default');
-    formData.append('cloud_name', 'dpqj4thfg');
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+    formData.append('cloud_name', CLOUDINARY_CLOUD_NAME);
 
     try {
-      const response = await fetch('https://api.cloudinary.com/v1_1/dpqj4thfg/image/upload', {
+      const response = await fetch(CLOUDINARY_UPLOAD_URL, {
         method: 'POST',
         body: formData,
       });
@@ -106,7 +113,7 @@ const AddPublicationScreen = ({ route }) => {
       } else {
         // Si no hay imagen, usamos la imagen predeterminada
         console.log('Usando imagen predeterminada...');
-        const defaultImageUrl = 'https://res.cloudinary.com/dpqj4thfg/image/upload/v1747764909/image_jqqo3e.png';
+        const defaultImageUrl = DEFAULT_IMAGE_URL;
         imageUrl = defaultImageUrl;
       }
   
@@ -127,7 +134,7 @@ const AddPublicationScreen = ({ route }) => {
   
       console.log('Datos de la publicación:', publicationData);
   
-      const response = await fetch('http://51.120.11.157:8080/api/publicaciones', {
+      const response = await fetch(PUBLICACIONES_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(publicationData),
@@ -179,7 +186,7 @@ const AddPublicationScreen = ({ route }) => {
             uri:
               selectedImage && typeof selectedImage === 'string' && selectedImage.trim() !== ''
                 ? selectedImage
-                : 'https://res.cloudinary.com/dpqj4thfg/image/upload/v1747764909/image_jqqo3e.png',
+                : DEFAULT_IMAGE_URL,
           }}
           style={styles.imageIcon}
           onError={(e) => console.log('Error al cargar imagen:', e.nativeEvent.error)}

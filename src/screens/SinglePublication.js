@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, Button, FlatList, Image, StyleSheet, TouchableOpacity, Modal } from "react-native";
 import { Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { API_URL } from "../constants/env";
 
 const screenWidth = Dimensions.get("window").width;
 
-const API_BASE_URL = 'http://51.120.11.157:8080/api'; // Reemplaza por tu URL base de la API
 
 const SinglePublication = ({ route }) => {
   const navigation = useNavigation();
@@ -29,7 +29,7 @@ const SinglePublication = ({ route }) => {
     const fetchData = async () => {
       try {
         // Obtener la publicación
-        const pubRes = await fetch(`${API_BASE_URL}/publicaciones/${publicacionId}`);
+        const pubRes = await fetch(`${API_URL}/publicaciones/${publicacionId}`);
         const pubData = await pubRes.json();
         setPublicacion(pubData);
 
@@ -38,7 +38,7 @@ const SinglePublication = ({ route }) => {
         setAuthor(pubData.autor);
 
         // Obtener los comentarios
-        const comRes = await fetch(`${API_BASE_URL}/comentarios/publicacion/${publicacionId}`);
+        const comRes = await fetch(`${API_URL}/comentarios/publicacion/${publicacionId}`);
         const comData = await comRes.json();
         
         // Asegurarse de que comData sea un array
@@ -74,7 +74,7 @@ const SinglePublication = ({ route }) => {
     const newComentario = { userId, publicacionId, comentario, comentarioPadreId: comentarioPadreId || null };
 
     try {
-      const res = await fetch(`${API_BASE_URL}/comentarios`, {
+      const res = await fetch(`${API_URL}/comentarios`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newComentario),
@@ -103,7 +103,7 @@ const SinglePublication = ({ route }) => {
   
     if (isLiked) {
       try {
-        const res = await fetch(`${API_BASE_URL}/likes/${userId}/${publicacionId}`, {
+        const res = await fetch(`${API_URL}/likes/${userId}/${publicacionId}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -122,7 +122,7 @@ const SinglePublication = ({ route }) => {
       }
     } else {
       try {
-        const res = await fetch(`${API_BASE_URL}/likes`, {
+        const res = await fetch(`${API_URL}/likes`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId, publicacionId }),
@@ -142,7 +142,7 @@ const SinglePublication = ({ route }) => {
 
   const handleEliminarComentario = async (comentarioId) => {
     try {
-      await fetch(`${API_BASE_URL}/comentarios/${comentarioId}`, {
+      await fetch(`${API_URL}/comentarios/${comentarioId}`, {
         method: "DELETE"
       });
       setComentarios((prev) => prev.filter((c) => c.id !== comentarioId));

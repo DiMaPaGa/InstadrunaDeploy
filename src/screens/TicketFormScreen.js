@@ -4,9 +4,8 @@ import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { Ionicons } from '@expo/vector-icons';
+import { CLOUDINARY_UPLOAD_PRESET, CLOUDINARY_CLOUD_NAME, API_URL } from "../../constants/env";
 
-const CLOUDINARY_UPLOAD_PRESET = 'ml_default';
-const CLOUDINARY_CLOUD_NAME = 'dpqj4thfg';
 
 
 const TicketFormScreen = ({ route }) => {
@@ -114,7 +113,7 @@ const uploadImageToCloudinary = async (uri) => {
     console.log('Enviando ticket:', ticketData);
 
     try {
-      const response = await fetch(`http://51.120.11.157:8080/api/tickets`, {
+      const response = await fetch(`${API_URL}/tickets`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(ticketData),
