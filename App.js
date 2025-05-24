@@ -11,7 +11,7 @@ import {
   USER_API_URL,
   GOOGLE_WEB_CLIENT_ID,
   GOOGLE_ANDROID_CLIENT_ID
-} from "./src/constants/env";
+} from "./src/constants/env"
 
 WebBrowser.maybeCompleteAuthSession();
 

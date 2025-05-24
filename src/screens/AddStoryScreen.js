@@ -3,7 +3,11 @@ import { View, Text, TextInput, TouchableOpacity, Image, ScrollView, StyleSheet,
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import { Dimensions } from 'react-native';
-import { STORIES_API_URL, CLOUDINARY_UPLOAD_PRESET, CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_URL } from '../constants/env';
+import { 
+  STORIES_API_URL, 
+  CLOUDINARY_UPLOAD_PRESET, 
+  CLOUDINARY_CLOUD_NAME, 
+  CLOUDINARY_UPLOAD_URL} from '../constants/env';
 
 const screenWidth = Dimensions.get('window').width;
 const imageSize = (screenWidth - 60) / 3;

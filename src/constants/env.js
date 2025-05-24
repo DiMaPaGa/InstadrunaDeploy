@@ -10,7 +10,7 @@ import {
   DEFAULT_IMAGE_URL,
   PUBLICACIONES_API_URL,
   CHAT_SOCKET_URL
-} from "@env";
+} from '@env';
 
 export {
   API_URL,
