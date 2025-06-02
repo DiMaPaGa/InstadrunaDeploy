@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, ScrollView, StyleSheet, Alert, ActivityIndicator } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import { useNavigation } from '@react-navigation/native';
-import { Dimensions } from 'react-native';
+import * as ImagePicker from 'expo-image-picker'; // libreria para acceder a la cámara y galería 
+import { useNavigation } from '@react-navigation/native'; // libreria para navegar entre pantallas
+import { Dimensions } from 'react-native'; // libreria para obtener el ancho de la pantalla
 import { 
   STORIES_API_URL, 
   CLOUDINARY_UPLOAD_PRESET, 
@@ -10,22 +10,25 @@ import {
   CLOUDINARY_UPLOAD_URL} from '@env';
 
 const screenWidth = Dimensions.get('window').width;
-const imageSize = (screenWidth - 60) / 3;
+const imageSize = (screenWidth - 60) / 3; // Tamaño de cada imagen para mostrar en grid
 
+// Componente principal para crear una historia
 const AddStoryScreen = ({ route }) => {
-  const { userId } = route.params || {}; // ID numérico del usuario
+  const { userId } = route.params || {}; // ID numérico del usuario recibido por parámetros
   const navigation = useNavigation();
-  const [images, setImages] = useState([]);
-  const [text, setText] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [images, setImages] = useState([]); // Almacena las URIs de las imágenes seleccionadas
+  const [text, setText] = useState(''); // Texto (opcional)
+  const [isLoading, setIsLoading] = useState(false); // Estado de carga
 
+  // Verifica si se obtuvo el ID del usuario
   useEffect(() => {
     if (!userId) {
       Alert.alert("Error", "No se pudo obtener la información del usuario.");
-      navigation.goBack();
+      navigation.goBack(); // Vuelve atrás si no hay usuario
     }
   }, [userId]);
 
+  // Solicita permisos para acceder a la galería
   useEffect(() => {
     (async () => {
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -35,7 +38,8 @@ const AddStoryScreen = ({ route }) => {
       }
     })();
   }, []);
-
+  
+  // Permite seleccionar varias imagenes
   const pickImages = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -50,6 +54,7 @@ const AddStoryScreen = ({ route }) => {
     }
   };
 
+  // Sube una imagen a Cloudinary
   const uploadToCloudinary = async (uri) => {
     const formData = new FormData();
     formData.append('file', { uri, name: 'image.jpg', type: 'image/jpeg' });
@@ -62,9 +67,10 @@ const AddStoryScreen = ({ route }) => {
     });
 
     const data = await res.json();
-    return data.secure_url;
+    return data.secure_url; // Retorna la URL segura
   };
 
+  // Maneja el envío de la historia
   const handleSubmit = async () => {
     if (images.length === 0) {
       Alert.alert('Error', 'Selecciona al menos una imagen');
@@ -80,12 +86,9 @@ const AddStoryScreen = ({ route }) => {
         imagenes: uploadedUrls.map((url, index) => ({
           imagenUrl: url,
           texto: text || '',
-          orden: index
+          orden: index // Mantiene el orden de las imágenes
         }))
       };
-
-      console.log('URLs de imágenes:', uploadedUrls);
-      console.log('Payload final:', JSON.stringify(payload, null, 2));
 
       const res = await fetch(STORIES_API_URL, {
         method: 'POST',
@@ -102,11 +105,11 @@ const AddStoryScreen = ({ route }) => {
           console.log('Respuesta JSON:', responseData);
         } else {
           const text = await res.text();
-          console.log('Respuesta no JSON:', text);
+          console.log('Respuesta no JSON:', text);  // Si no es JSON, lo maneja como texto
         }
       
         Alert.alert('Éxito', 'Historia publicada');
-        setImages([]);
+        setImages([]); // Limpia campos
         setText('');
         navigation.navigate('Main', { userId });
       } else {
@@ -118,11 +121,12 @@ const AddStoryScreen = ({ route }) => {
         console.error(err);
         Alert.alert('Error', 'No se pudo subir la historia');
         } finally {
-        setIsLoading(false);
+        setIsLoading(false); // Termina carga
         }
   };
-
+  // Renderizado de la pantalla de creación de historia
   return (
+    
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.header}>Nueva Historia</Text>
 
@@ -152,6 +156,7 @@ const AddStoryScreen = ({ route }) => {
   );
 };
 
+// Estilos del componente
 const styles = StyleSheet.create({
   container: {
     padding: 20,

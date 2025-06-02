@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Alert, ScrollView } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import { useNavigation } from '@react-navigation/native';
+import * as ImagePicker from 'expo-image-picker'; // libreria para acceder a la cámara y galería
+import { useNavigation } from '@react-navigation/native'; // libreria para navegar entre pantallas
 import {
   CLOUDINARY_UPLOAD_PRESET,
   CLOUDINARY_CLOUD_NAME,
@@ -11,14 +11,17 @@ import {
 } from '@env';
 
 
+// Pantalla para crear una nueva publicación
 const AddPublicationScreen = ({ route }) => {
+  // Extrae los datos del usuario desde la navegación
   const { userId, givenName, profileImageUrl, email } = route.params || {};
   const navigation = useNavigation();
+  // Estados del formulario
   const [title, setTitle] = useState('');
   const [comment, setComment] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [privacy, setPrivacy] = useState('PUBLICA'); 
+  const [privacy, setPrivacy] = useState('PUBLICA'); // Por defecto, la publicación es publica
 
 
 
@@ -27,15 +30,16 @@ const AddPublicationScreen = ({ route }) => {
     const getPermissions = async () => {
       const { status: cameraStatus } = await ImagePicker.requestCameraPermissionsAsync();
       const { status: mediaLibraryStatus } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      // Si los permisos no fueron otorgados, se alerta al usuario
       if (cameraStatus !== 'granted' || mediaLibraryStatus !== 'granted') {
         Alert.alert('Permiso denegado', 'Se necesitan permisos para acceder a la cámara y la galería.');
       }
     };
-  
-    getPermissions();
+    //Llamada inicial a la función
+    getPermissions(); 
   }, []);
 
-  // Seleccionar imagen desde la galería o cámara
+  // Permite seleccionar imagen desde la galería o cámara
   const handleImagePick = async () => {
     Alert.alert(
       'Selecciona una opción',
@@ -50,6 +54,7 @@ const AddPublicationScreen = ({ route }) => {
               quality: 1,
             });
 
+            // Si se seleccionó una imagen, la guardamos
             if (!result.canceled && result.assets && result.assets.length > 0) {
               setSelectedImage(result.assets[0].uri);
             }
@@ -77,6 +82,7 @@ const AddPublicationScreen = ({ route }) => {
     );
   };
 
+  // Subida de imagen a Cloudinary
   const uploadImageToCloudinary = async (imageUri) => {
     const formData = new FormData();
     formData.append('file', { uri: imageUri, name: 'image.jpg', type: 'image/jpeg' });
@@ -89,12 +95,13 @@ const AddPublicationScreen = ({ route }) => {
         body: formData,
       });
       const data = await response.json();
-      return data.secure_url;
+      return data.secure_url; // Devuelve la URL segura de la imagen subida
     } catch (error) {
       throw new Error('Error al subir la imagen');
     }
   };
 
+  // Función de envío de datos al servidor para crear la publicación
   const handleCreatePublication = async () => {
     if (!title.trim() || !comment.trim()) {
       Alert.alert('Error', 'Por favor, completa todos los campos.');
@@ -117,6 +124,7 @@ const AddPublicationScreen = ({ route }) => {
         imageUrl = defaultImageUrl;
       }
   
+      // Información del usuario
       const usuarioData = {
         userId: userId,
         email: email,
@@ -124,6 +132,7 @@ const AddPublicationScreen = ({ route }) => {
         profileImageUrl: profileImageUrl,
       };
   
+      // Datos de la publicación
       const publicationData = {
         autor: usuarioData,
         titulo: title,
@@ -132,15 +141,14 @@ const AddPublicationScreen = ({ route }) => {
         privacidad: privacy,
       };
   
-      console.log('Datos de la publicación:', publicationData);
-  
+      // Envío de la publicación al servidor
       const response = await fetch(PUBLICACIONES_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(publicationData),
       });
   
-  
+      // Manejo de respuesta del servidor
       if (response.ok) {
         const responseData = await response.json();
         console.log("Datos de la respuesta:", responseData);
@@ -174,12 +182,12 @@ const AddPublicationScreen = ({ route }) => {
     }
   };
   
-
+ // Renderizado de la interfaz
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.header}>PUBLICACIÓN</Text>
 
-      {/* Imagen seleccionada (clickeable) */}
+      {/* Vista previa de la imagen seleccionada (clickeable) */}
       <TouchableOpacity onPress={handleImagePick}>
         <Image
           source={{
@@ -193,6 +201,7 @@ const AddPublicationScreen = ({ route }) => {
         />
       </TouchableOpacity>
 
+      {/* Campo de título */}
       <Text style={styles.label}>Título</Text>
       <TextInput
         style={styles.input}
@@ -202,6 +211,7 @@ const AddPublicationScreen = ({ route }) => {
         onChangeText={(text) => text.length <= 40 && setTitle(text)}
       />
 
+      {/* Campo de la descripción de la publicación */}
       <Text style={styles.label}>Descripción</Text>
       <TextInput
         style={[styles.input, styles.textArea]}
@@ -228,7 +238,8 @@ const AddPublicationScreen = ({ route }) => {
             <Text style={styles.privacyText}>Privada</Text>
           </TouchableOpacity>
         </View>
-
+      
+      {/* Botón de publicación */}
       <TouchableOpacity
         style={[styles.button, isLoading && styles.buttonDisabled]}
         onPress={handleCreatePublication}
@@ -240,6 +251,7 @@ const AddPublicationScreen = ({ route }) => {
   );
 };
 
+// Estilos del componente
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 
-// Esta es la pantalla de login
+// Componente principal de la pantalla de inicio de sesión
 const LoginScreen = ({ promptAsync, request }) => {
   return (
     <View style={styles.container}>
@@ -24,6 +24,7 @@ const LoginScreen = ({ promptAsync, request }) => {
   );
 };
 
+// Estilos para la pantalla
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   loginText: {
-    color: "#fff",
+    color: "#DFDFDF",
     fontSize: 16,
     fontWeight: "bold",
   },

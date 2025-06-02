@@ -5,28 +5,33 @@ import LoginScreen from '../LoginScreen';
 import SinglePublication from '../SinglePublication';
 import TicketFormScreen from '../TicketFormScreen';
 import ChatScreen from '../ChatScreen';
-import TabNavigator from './TabNavigator'; // Importa el TabNavigator
+import TabNavigator from './TabNavigator'; 
+import StoryViewer from '../StoryViewer';  
+import AddStoryScreen from '../AddStoryScreen';  
 
-import StoryViewer from '../StoryViewer';  // Importa la pantalla StoryViewer
-import AddStoryScreen from '../AddStoryScreen';  // Importa la pantalla AddStoryScreen
-
+// Crea una pila de navegación (stack)
 const Stack = createNativeStackNavigator();
 
+// Componente principal que define las rutas de navegación
 const StackNavigator = ({ userInfo, onLogout, promptAsync, request }) => {
   return (
     <NavigationContainer>
+      {/* Define el stack de pantallas. Oculta los headers por defecto */}
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+
+        {/* Si el usuario no ha iniciado sesión, muestra la pantalla de login */}
         {!userInfo ? (
           <Stack.Screen name="Login">
             {() => <LoginScreen promptAsync={promptAsync} request={request} />}
           </Stack.Screen>
         ) : (
           <>
+            {/* Si el usuario está autenticado, carga la navegación principal por tabs */}
             <Stack.Screen name="Main">
               {() => <TabNavigator userInfo={userInfo} onLogout={onLogout} />}
             </Stack.Screen>
 
-             {/* Aquí agregamos las pantallas de historia */}
+             {/* Pantalla para ver historias */}
              <Stack.Screen name="StoryViewer">
               {({ route, navigation }) => (
                 <StoryViewer 
@@ -36,6 +41,7 @@ const StackNavigator = ({ userInfo, onLogout, promptAsync, request }) => {
               )}
             </Stack.Screen>
 
+            {/* Pantalla para agregar una historia */}
             <Stack.Screen name="AddStoryScreen">
               {({ route, navigation }) => (
                 <AddStoryScreen 
@@ -45,6 +51,7 @@ const StackNavigator = ({ userInfo, onLogout, promptAsync, request }) => {
               )}
             </Stack.Screen>
 
+            {/* Pantalla para ver una publicación específica */}
             <Stack.Screen name="SinglePublication">
               {({ route, navigation }) => (
                 <SinglePublication
@@ -55,6 +62,7 @@ const StackNavigator = ({ userInfo, onLogout, promptAsync, request }) => {
               )}
             </Stack.Screen>
 
+            {/* Pantalla para crear un ticket */}
             <Stack.Screen name="TicketFormScreen">
               {({ route, navigation }) => (
                 <TicketFormScreen
@@ -65,6 +73,7 @@ const StackNavigator = ({ userInfo, onLogout, promptAsync, request }) => {
               )}
             </Stack.Screen>
 
+            {/* Pantalla para chatear */}
             <Stack.Screen name="ChatScreen">
               {({ route, navigation }) => (
                 <ChatScreen

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList, Alert, ActivityIndicator } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import * as ImagePicker from 'expo-image-picker';
+import { useNavigation } from '@react-navigation/native'; // libreria para navegar entre pantallas
+import * as ImagePicker from 'expo-image-picker'; // libreria para acceder a la cámara y galería
 
 import { 
   CLOUDINARY_UPLOAD_PRESET, 
@@ -9,9 +9,12 @@ import {
   API_URL 
 } from '@env';
 
-
+// Componente principal de la pantalla de perfil
 const ProfileScreen = ({ route, onLogout }) => {
+  // Extraemos datos del usuario pasados por navegación
   const { userId, givenName, email, profileImageUrl } = route.params || {};
+
+  // Estados para gestionar la vista
   const [viewLikes, setViewLikes] = useState(false);
   const [posts, setPosts] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
@@ -23,6 +26,7 @@ const ProfileScreen = ({ route, onLogout }) => {
 
   const navigation = useNavigation();
 
+  // Solicitar permisos al iniciar la pantalla
   useEffect(() => {
     const getPermissions = async () => {
       await ImagePicker.requestCameraPermissionsAsync();
@@ -31,6 +35,7 @@ const ProfileScreen = ({ route, onLogout }) => {
     getPermissions();
   }, []);
 
+  // Mostrar menú para elegir entre cámara o galería
   const handleImagePick = async () => {
     // Mostrar un Alert para elegir entre cámara o galería
     Alert.alert(
@@ -53,6 +58,7 @@ const ProfileScreen = ({ route, onLogout }) => {
     );
   };
 
+  // Seleccionar imagen desde galería
   const pickImageFromGallery = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
@@ -72,6 +78,7 @@ const ProfileScreen = ({ route, onLogout }) => {
     }
   };
 
+  // Tomar foto con la cámara
   const pickImageFromCamera = async () => {
     try {
       const result = await ImagePicker.launchCameraAsync({
@@ -90,6 +97,7 @@ const ProfileScreen = ({ route, onLogout }) => {
     }
   };
 
+  // Subir imagen a Cloudinary
   const uploadImageToCloudinary = async (imageUri) => {
     const formData = new FormData();
     formData.append('file', { uri: imageUri, name: 'image.jpg', type: 'image/jpeg' });
@@ -108,6 +116,7 @@ const ProfileScreen = ({ route, onLogout }) => {
     }
   };
 
+  // Actualizar imagen en el backend
   const updateProfileImage = async (imageUrl) => {
     try {
       const response = await fetch(`${API_URL}/usuarios/${userId}`, {
@@ -128,9 +137,12 @@ const ProfileScreen = ({ route, onLogout }) => {
     }
   };
 
+  // Obtener datos del usuario y sus publicaciones
   const fetchUserData = useCallback(async () => {
     try {
       setLoading(true);
+
+      // Obtener info del usuario
       const userResponse = await fetch(`${API_URL}/usuarios/${userId}`);
       const userData = await userResponse.json();
   
@@ -139,12 +151,14 @@ const ProfileScreen = ({ route, onLogout }) => {
         navigation.setParams({ profileImageUrl: userData.profileImageUrl });
       }
   
+      // Obtener publicaciones
       const postsResponse = await fetch(`${API_URL}/publicaciones/user/${userId}`);
       const postsData = await postsResponse.json();
       if (Array.isArray(postsData)) {
         setPosts(postsData.reverse());
       }
   
+      // Obtener publicaciones que le gustaron
       const likedPostsResponse = await fetch(`${API_URL}/publicaciones/likes/${userId}`);
       const likedPostsData = await likedPostsResponse.json();
       if (Array.isArray(likedPostsData)) {
@@ -157,6 +171,7 @@ const ProfileScreen = ({ route, onLogout }) => {
     }
   }, [userId, navigation]);
 
+  // Obtener conteo de seguidores y seguidos
   const obtenerConteos = async () => {
     try {
       const [resSeguidores, resSeguidos] = await Promise.all([
@@ -174,7 +189,7 @@ const ProfileScreen = ({ route, onLogout }) => {
     }
   };
   
-
+  // Cargar datos cada vez que se enfoca esta pantalla
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       fetchUserData();
@@ -183,10 +198,12 @@ const ProfileScreen = ({ route, onLogout }) => {
     return unsubscribe;
   }, [fetchUserData, navigation]);
 
+  // Mostrar spinner mientras carga
   if (loading) {
     return <ActivityIndicator size="large" color="#33c4ff" />;
   }
 
+  // Render de la pantalla principal del perfil
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -251,6 +268,7 @@ const ProfileScreen = ({ route, onLogout }) => {
   );
 };
 
+// Estilos personalizados
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#23272A', padding: 10 },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', paddingVertical: 20 },

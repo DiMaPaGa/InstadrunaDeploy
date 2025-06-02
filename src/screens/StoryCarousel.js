@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, TouchableOpacity, Image, Text, StyleSheet, View } from 'react-native';
 
-// Componente del carrusel de historias
+// Componente del carrusel de historias con scroll horizontal
 const StoryCarousel = ({ stories, onStoryPress, onAddStoryPress, currentUser}) => {
       return (
         <ScrollView 
@@ -54,6 +54,7 @@ const StoryCarousel = ({ stories, onStoryPress, onAddStoryPress, currentUser}) =
       );
     };
     
+    // Estilos del componente personalizados
     const styles = StyleSheet.create({
         carousel: {
           marginTop: 20,
@@ -72,7 +73,7 @@ const StoryCarousel = ({ stories, onStoryPress, onAddStoryPress, currentUser}) =
         storyItem: {
           alignItems: 'center',
           marginRight: 15,
-          marginLeft: 2, // Le da un pequeño espacio a la izquierda para que no esté pegado al borde
+          marginLeft: 2, 
         },
         imageWrapper: {
           borderWidth: 3,

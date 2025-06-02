@@ -10,26 +10,31 @@ import {
   Pressable,
   Animated,
 } from 'react-native';
-import { useRoute, useNavigation } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons';
+import { useRoute, useNavigation } from '@react-navigation/native'; // libreria para navegar entre pantallas
+import { Ionicons } from '@expo/vector-icons'; // libreria para los iconos
 
+// Obtener dimensiones de pantalla
 const { width, height } = Dimensions.get('window');
+
+// Duración por defecto de cada historia en milisegundos
 const STORY_DURATION = 3000;
 
+// Componente principal para la vista de la historia seleccionada
 const StoryViewer = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  const { story } = route.params ?? {};
+  const { story } = route.params ?? {}; // Historia recibida por parámetros
 
-  const flatListRef = useRef(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const flatListRef = useRef(null); // Referencia a la FlatList para controlar el scroll
+  const [currentIndex, setCurrentIndex] = useState(0); // Índice actual de la historia mostrada
+  const [isPaused, setIsPaused] = useState(false); // Controla si el temporizador está pausado
 
-
+  // Animaciones para la barra de progreso y transiciones
   const progress = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const imageFadeAnim = useRef(new Animated.Value(1)).current;
 
+  // Animación de entrada del encabezado (autor, título)
   useEffect(() => {
     Animated.timing(fadeAnim, {
       toValue: 1,
@@ -38,6 +43,7 @@ const StoryViewer = () => {
     }).start();
   }, []);
 
+  // Control del temporizador para pasar a la siguiente imagen automáticamente
   useEffect(() => {
     if (!story || !Array.isArray(story.imagenesUrls) || story.imagenesUrls.length <= 1) return;
   
@@ -52,6 +58,7 @@ const StoryViewer = () => {
         useNativeDriver: false,
       });
   
+      // Al finalizar la animación, pasar a la siguiente imagen
       animation.start(({ finished }) => {
         if (finished && !isPaused) {
           const nextIndex = (currentIndex + 1) % story.imagenesUrls.length;
@@ -63,11 +70,12 @@ const StoryViewer = () => {
   
     return () => {
       if (animation) {
-        animation.stop();
+        animation.stop(); // Detener animación al desmontar o actualizar
       }
     };
   }, [currentIndex, isPaused, story]);
 
+  // Animación de fundido entre imágenes al cambiar de índice
   useEffect(() => {
     imageFadeAnim.setValue(0);
     Animated.timing(imageFadeAnim, {
@@ -77,8 +85,10 @@ const StoryViewer = () => {
     }).start();
   }, [currentIndex]);
 
+  // Regresa a la pantalla anterior
   const handleBack = () => navigation.goBack();
 
+  // Si no hay historia cargada, mostrar mensaje de error
   if (!story) {
     return (
       <View style={styles.container}>
@@ -90,15 +100,18 @@ const StoryViewer = () => {
     );
   }
 
-  
+  // Texto principal de la imagen como título
   const titleText = story.imagenesUrls[0]?.texto || '';
 
+  // Renderizado de la vista
   return (
     <View style={styles.fullScreen}>
+      {/* Botón de volver */}
       <TouchableOpacity onPress={handleBack} style={styles.backButton}>
         <Ionicons name="chevron-back" size={30} color="#33c4ff" />
       </TouchableOpacity>
 
+      {/* Cabecera con autor y título */}
       <Animated.View style={[styles.header, { opacity: fadeAnim }]}>
         <Image
           source={{ uri: story.autor?.profileImageUrl }}
@@ -110,7 +123,7 @@ const StoryViewer = () => {
         </View>
       </Animated.View>
 
-      {/* Barras de progreso */}
+      {/* Barras de progreso visual para cada imagen */}
       <View style={styles.progressContainer}>
         {story.imagenesUrls.map((_, index) => {
           const widthInterpolate = index === currentIndex
@@ -133,6 +146,7 @@ const StoryViewer = () => {
         })}
       </View>
 
+      {/* Carrusel horizontal con las imágenes de la historia */}
       <FlatList
         ref={flatListRef}
         data={story.imagenesUrls}
@@ -153,7 +167,7 @@ const StoryViewer = () => {
             style={[styles.carouselImage, { opacity: imageFadeAnim }]}
           />
 
-          
+          {/* Zona izquierda para retroceder imagen */}
           <Pressable
             onPressIn={() => setIsPaused(true)}
             onPressOut={() => setIsPaused(false)}
@@ -167,7 +181,7 @@ const StoryViewer = () => {
             style={styles.leftZone}
           />
 
-      
+          {/* Zona derecha para avanzar imagen */}
           <Pressable
             onPressIn={() => setIsPaused(true)}
             onPressOut={() => setIsPaused(false)}
@@ -187,6 +201,7 @@ const StoryViewer = () => {
   );
 };
 
+// Estilos del componente personalizados
 const styles = StyleSheet.create({
   fullScreen: {
     flex: 1,

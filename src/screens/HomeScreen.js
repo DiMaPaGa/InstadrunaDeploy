@@ -14,16 +14,17 @@ import {
 } from "react-native";
 import PropTypes from "prop-types";
 import { useNavigation } from '@react-navigation/native';
-import StoryCarousel from "./StoryCarousel";
+import StoryCarousel from "./StoryCarousel"; // Importa el componente StoryCarousel personalizado
 import { useFocusEffect } from '@react-navigation/native';
 import { API_URL, USER_API_URL, STORIES_API_URL} from '@env';
 
 // Crear un FlatList animado
 const AnimatedFlatList = Animated.createAnimatedComponent(RNFlatList);
 
-const { width } = Dimensions.get("window");
-const fontSize = width * 0.1;  
+const { width } = Dimensions.get("window"); // Obtener el ancho de la pantalla
+const fontSize = width * 0.1; // Calcular el tamaño de fuente basado en el ancho 
 
+// Componente principal
 const HomeScreen = ({ route, onLogout }) => {
   const navigation = useNavigation();
   const { givenName, profileImageUrl, userId  } = route.params || {};
@@ -32,14 +33,15 @@ const HomeScreen = ({ route, onLogout }) => {
     console.log("Datos del usuario:", givenName, profileImageUrl, userId);
   }, [givenName, profileImageUrl, userId]);
   
-  const [publicaciones, setPublicaciones] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [refreshing, setRefreshing] = useState(false);
-  const [error, setError] = useState(null);
+  const [publicaciones, setPublicaciones] = useState([]); // Estado para las publicaciones
+  const [loading, setLoading] = useState(true); // Estado de carga
+  const [refreshing, setRefreshing] = useState(false); // Estado de actualización
+  const [error, setError] = useState(null); // Estado de error
   const [stories, setStories] = useState([]); // Estado para las historias
   const flatListRef = useRef(null);  // Referencia para FlatList
   const offsetY = useRef(0); // Usamos ref para almacenar la posición
 
+  // Función para obtener las publicaciones
   const fetchPublicaciones = async () => {
     try {
       setLoading(true);
@@ -55,7 +57,7 @@ const HomeScreen = ({ route, onLogout }) => {
       const publicacionesData = JSON.parse(text);
   
       const publicacionesConUsuario = publicacionesData.map(publicacion => {
-        // 🔍 Aseguramos compatibilidad: si los likes vienen como objetos, sacamos solo los userIds
+        // Aseguramos compatibilidad: si los likes vienen como objetos, sacamos solo los userIds
         const likesArray = Array.isArray(publicacion.likes)
           ? publicacion.likes.map(l => typeof l === 'object' ? l.userId : l)
           : [];
@@ -81,16 +83,17 @@ const HomeScreen = ({ route, onLogout }) => {
     }
   };
 
+  // Función para obtener los datos del usuario
   const fetchUserData = async (userId) => {
     try {
-      const response = await fetch(`${USER_API_URL}/${userId}`); // Aquí deberías poner tu URL para obtener los detalles del usuario
+      const response = await fetch(`${USER_API_URL}/${userId}`); 
       if (!response.ok) {
         throw new Error(`Error al obtener datos del usuario: ${response.statusText}`);
       }
       return await response.json();
     } catch (error) {
       console.error("Error al cargar los datos del usuario:", error);
-      return null;  // En caso de error, devolveremos null
+      return null;  
     }
   };
 
@@ -106,7 +109,7 @@ const HomeScreen = ({ route, onLogout }) => {
       const historiasData = await response.json();
       console.log("Datos de las historias:", historiasData);
 
-     // Aquí haremos un mapa de historias y buscaremos los datos del autor
+     // Mapa de historias y bússqueda de los datos del autor
      const historiasConUsuario = await Promise.all(historiasData.map(async (story) => {
       const userData = await fetchUserData(story.userId);  // Usamos el userId para obtener el dato del usuario
       return {
@@ -130,14 +133,13 @@ const HomeScreen = ({ route, onLogout }) => {
     }
   };
   
-
+  //Ciclo de vida: Llama a las funciones al montar el componente
   useEffect(() => {
-    console.log("user_id recibido:", userId);
     fetchPublicaciones();
-    fetchStories();  // Llamamos a la función que carga las historias
+    fetchStories(); 
   }, [userId]);
 
-  // Agrega el useFocusEffect después de este bloque
+  // Ciclo de vida: Llama a las funciones al regresar al componente
   useFocusEffect(
     React.useCallback(() => {
       fetchStories();  // Esto recarga las historias cada vez que el usuario regresa
@@ -145,6 +147,7 @@ const HomeScreen = ({ route, onLogout }) => {
   );
 
 
+  //Ciclo de vida: Refresca las publicaciones e historias
   const handleRefresh = async () => {
     setRefreshing(true);
     await fetchPublicaciones();
@@ -157,6 +160,7 @@ const HomeScreen = ({ route, onLogout }) => {
     }
   };
 
+  // Función para manejar el like
   const toggleLike = async (publicacionId) => {
     try {
       const pubActual = publicaciones.find(p => p.id === publicacionId);
@@ -199,8 +203,6 @@ const HomeScreen = ({ route, onLogout }) => {
         ? `${API_URL}/likes/${userId}/${publicacionId}`
         : `${API_URL}/likes`;
   
-      console.log("Haciendo solicitud a:", url);
-      console.log("Con body:", options.body);
   
       const response = await fetch(url, options);
   
@@ -215,6 +217,8 @@ const HomeScreen = ({ route, onLogout }) => {
       Alert.alert("Error", error.message);
     }
   };
+
+  // Renderizado de las publicaciones
   const renderItem = ({ item }) => {
     const daysAgo = Math.round((new Date() - new Date(item.createdAt)) / (1000 * 60 * 60 * 24));
     const likesCount = item.likesCount ?? 0;
@@ -266,7 +270,7 @@ const HomeScreen = ({ route, onLogout }) => {
     );
   };
 
-  // Función para manejar el click en una historia
+  // Función para manejar la navegación a una historia específica
   const handleStoryPress = (storyId) => {
     // Busca la historia completa usando el ID
     const selectedStory = stories.find(story => story.id === storyId);
@@ -279,6 +283,7 @@ const HomeScreen = ({ route, onLogout }) => {
     }
   };
 
+  // Renderizado principal
   return (
     <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -324,14 +329,14 @@ const HomeScreen = ({ route, onLogout }) => {
           onScroll={(e) => {
             offsetY.current = e.nativeEvent.contentOffset.y;  // Guarda la posición del scroll
           }}
-          ListFooterComponent={<View style={{ height: 60 }} />} // Antes estaba en 60
-          //scrollEventThrottle={16}
+          ListFooterComponent={<View style={{ height: 60 }} />}
         />
       )}
     </View>
   );
 };
 
+// Validación de las propiedades que definen los tipos esperados
 HomeScreen.propTypes = {
   route: PropTypes.shape({
     params: PropTypes.shape({
@@ -343,6 +348,7 @@ HomeScreen.propTypes = {
   onLogout: PropTypes.func.isRequired,
 };
 
+// Estilos personalizados
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -399,7 +405,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
   },
   listContent: {
-    paddingTop: 30,  // Esto le da espacio para el header
+    paddingTop: 30,  
     paddingBottom: 20,
   },
   errorText: {
@@ -500,7 +506,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   carouselContainer: {
-    marginTop: 120,  // Ajusta el margen para que no se solape con el header
+    marginTop: 120,  
     alignItems: 'center',
   },
   addStoryText: {

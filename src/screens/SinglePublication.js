@@ -4,14 +4,18 @@ import { Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { API_URL } from '@env';
 
+// Obtener el ancho de la pantalla para estilos dinámicos
 const screenWidth = Dimensions.get("window").width;
 
-
+// Componente principal de una publicación con sus comentarios y likes
 const SinglePublication = ({ route }) => {
   const navigation = useNavigation();
+
+  // Desestructurar los datos recibidos desde la navegación
   const { id: publicacionId, userInfo } = route.params || {}; // Obtener el ID de la publicación
   const { userId, givenName, profileImageUrl } = userInfo || {}; // Datos del usuario autenticado
 
+  // Estados para manejar los datos de la publicación, comentarios, likes, etc.
   const [publicacion, setPublicacion] = useState(null);
   const [comentarios, setComentarios] = useState([]);
   const [comentario, setComentario] = useState("");
@@ -21,20 +25,20 @@ const SinglePublication = ({ route }) => {
   const [isActivePublicar, setIsActivePublicar] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [author, setAuthor] = useState(null); // Para guardar la información del autor de la publicación
+  const [author, setAuthor] = useState(null); 
 
+  // Carga inicial de datos: publicación, autor, comentarios y likes
   useEffect(() => {
     if (!publicacionId) return;
 
     const fetchData = async () => {
       try {
-        // Obtener la publicación
+        // Obtener los datos de la publicación
         const pubRes = await fetch(`${API_URL}/publicaciones/${publicacionId}`);
         const pubData = await pubRes.json();
         setPublicacion(pubData);
 
         // Obtener el autor de la publicación (el usuario que la creó)
-    
         setAuthor(pubData.autor);
 
         // Obtener los comentarios
@@ -63,11 +67,13 @@ const SinglePublication = ({ route }) => {
     fetchData();
   }, [publicacionId, userId]);
 
+  // Activar botón "Publicar" solo si el comentario tiene contenido
   useEffect(() => {
     setIsActivePublicar(comentario.trim().length > 0);
   }, [comentario]);
 
 
+  // Envío de nuevo comentario (o respuesta si comentarioPadreId está definido)
   const handleComentarioSubmit = async () => {
     if (!comentario.trim()) return;
 
@@ -97,7 +103,7 @@ const SinglePublication = ({ route }) => {
   };
 
 
-  // Función para gestionar el like (manteniéndola igual que en el primer código que me diste)
+  // Función para gestionar el like
   const handleLike = async () => {
     const isLiked = likes.some((like) => like.userId === userId);
   
@@ -116,7 +122,7 @@ const SinglePublication = ({ route }) => {
         }
   
         setLikes((prev) => prev.filter((like) => like.userId !== userId));
-        setUserLiked(false); // 👈 ACTUALIZA
+        setUserLiked(false);
       } catch (err) {
         console.error("Error eliminando like", err);
       }
@@ -140,6 +146,7 @@ const SinglePublication = ({ route }) => {
     }
   };
 
+  // Eliminar un comentario (si es del usuario actual)
   const handleEliminarComentario = async (comentarioId) => {
     try {
       await fetch(`${API_URL}/comentarios/${comentarioId}`, {
@@ -151,6 +158,7 @@ const SinglePublication = ({ route }) => {
     }
   };
 
+  // Agrupar comentarios y sus respuestas
   const comentariosAgrupados = comentarios
   .filter(c => !c.comentarioPadreId)  // Filtramos solo los comentarios principales (sin comentarioPadreId)
   .map(c => ({
@@ -158,7 +166,7 @@ const SinglePublication = ({ route }) => {
     respuestas: comentarios.filter(r => r.comentarioPadreId === c.id)  // Filtramos las respuestas para cada comentario
   }));
 
-
+  // Renderizar cada comentario con sus respuestas
   const renderItem = ({ item }) => (
     <View style={styles.commentItem}>
       <Image
@@ -204,14 +212,13 @@ const SinglePublication = ({ route }) => {
     </View>
   );
   
-  
+  // Mensajes de carga o error
   if (loading) return <Text>Cargando publicación...</Text>;
   if (!publicacion) return <Text>Error al cargar la publicación.</Text>;
 
    return (
     <View style={styles.container}>
 
-      {/* HEADER FIJO */}
       <View style={styles.fixedHeader}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
           <Image source={require("../../assets/images/returnBlue.png")} style={styles.backIcon} />
@@ -230,7 +237,7 @@ const SinglePublication = ({ route }) => {
       <FlatList
         ListHeaderComponent={
           <>
-            <View style={{ height: 140 }} /> {/* Espacio para el header fijo */}
+            <View style={{ height: 140 }} /> 
             <View style={styles.publicationContent}>
                 <Image source={
                     publicacion.imageUrl
@@ -304,6 +311,7 @@ const SinglePublication = ({ route }) => {
   );
 };
 
+// Estilos personalizados
 const styles = StyleSheet.create({
   container: {
     flex: 1,

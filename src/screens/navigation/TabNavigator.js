@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet } from 'react-native';
-import PropTypes from 'prop-types'; // Importamos PropTypes
+import PropTypes from 'prop-types'; // Importamos PropTypes para la validación
 
 // Importa las pantallas
 import HomeScreen from '../HomeScreen';
@@ -11,24 +11,30 @@ import AddPublicationScreen from '../AddPublicationScreen';
 import SuggestedUsersScreen from '../SuggestedUsersScreen'; 
 
 
-//componentes
+// Componente personalizado para los íconos de la barra de navegación inferior
 import CustomTabBarIcon from '../../components/CustomTabBarIcon';
 
+// Crea una instancia del bottom tab navigator
 const Tab = createBottomTabNavigator();
 
+// Componente principal del TabNavigator
 const TabNavigator = ({ userInfo, onLogout }) => {
-  if (!userInfo) return null; // protección extra
+  // Protección extra por si userInfo no está disponible
+  if (!userInfo) return null; 
   
+  // Extrae los datos del usuario que se pasan a todas las pantallas
   const { givenName, userId, profileImageUrl, email } = userInfo;
 
   return (
+  
     <Tab.Navigator
       screenOptions={{
-        tabBarShowLabel: false,
-        headerShown: false,
-        tabBarStyle: styles.tabBar,
+        tabBarShowLabel: false, // Oculta los nombres de las pestañas
+        headerShown: false, // Oculta los headers superiores
+        tabBarStyle: styles.tabBar, // Estilos personalizados de la barra de navegación
       }}
     >
+      {/* Pantalla principal (Home) */}
       <Tab.Screen
         name="Home"
         options={{
@@ -52,6 +58,7 @@ const TabNavigator = ({ userInfo, onLogout }) => {
         )}
       </Tab.Screen>
 
+      {/* Pantalla para agregar una publicación */}
       <Tab.Screen
         name="Add"
         options={{
@@ -74,6 +81,7 @@ const TabNavigator = ({ userInfo, onLogout }) => {
         )}
       </Tab.Screen>
       
+      {/* Pantalla de ajustes o formulario de tickets */}
       <Tab.Screen
         name="Ajustes"
         component={TicketScreen}
@@ -90,6 +98,7 @@ const TabNavigator = ({ userInfo, onLogout }) => {
         }}
       />
 
+    {/* Pantalla de perfil del usuario */}
     <Tab.Screen
       name="Perfil"
       options={{
@@ -113,7 +122,7 @@ const TabNavigator = ({ userInfo, onLogout }) => {
       )}
     </Tab.Screen>
 
-    {/* Nueva pantalla de sugerencias */}
+    {/* Pantalla de usuarios sugeridos */}
     <Tab.Screen
         name="People"
         options={{
@@ -154,6 +163,7 @@ TabNavigator.propTypes = {
   request: PropTypes.object,
 };
 
+// Estilos personalizados para la barra de navegación inferior
 const styles = StyleSheet.create({
   tabBar: {
     backgroundColor: '#23272A',

@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, TextInput, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient'; 
-import useChatSocket from '../hooks/useChatSocket';
-import dayjs from 'dayjs';
-import 'dayjs/locale/es'; 
-import isToday from 'dayjs/plugin/isToday';
-import isYesterday from 'dayjs/plugin/isYesterday';
-import { encode as btoa, decode as atob } from 'base-64'; 
+import { LinearGradient } from 'expo-linear-gradient'; // Librería para gradientes
+import useChatSocket from '../hooks/useChatSocket'; // Hook personalizadopara manejar la conexión de socket
+import dayjs from 'dayjs'; // Librería para manejar fechas
+import 'dayjs/locale/es'; // Librería para manejar fechas en español
+import isToday from 'dayjs/plugin/isToday';// Librería para manejar fechas hoy
+import isYesterday from 'dayjs/plugin/isYesterday'; // Librería para manejar fechas ayer
+import { encode as btoa, decode as atob } from 'base-64'; // Librería para codificar y decodificar base64 
 
 
 dayjs.locale('es');
@@ -14,7 +14,7 @@ dayjs.extend(isToday);
 dayjs.extend(isYesterday);
 
 
-// NUEVAS funciones de cifrado y descifrado (compatibles con React Native)
+// Codificación y decodificación base64 (NO es cifrado real, solo ofuscación ligera)
 const encryptMessage = (text) => {
   return btoa(unescape(encodeURIComponent(text)));
 };
@@ -44,19 +44,19 @@ export default function ChatScreen({ route, navigation }) {
     }
   }, [messages]);
 
-  // Formatear fecha y hora
+  //Formato de tiempo personalizado para cada mensaje
   const formatTime = (timestamp) => {
     const date = dayjs(timestamp);
     if (date.isToday()) {
       return date.format('HH:mm'); // Solo hora si es hoy
     }
     if (date.isYesterday()) {
-      return `Ayer ${date.format('HH:mm')}`;
+      return `Ayer ${date.format('HH:mm')}`; // Ayer + hora
     }
     return date.format('DD MMM, HH:mm'); // Fecha corta + hora
   };
 
-  // Función para agrupar mensajes consecutivos del mismo usuario
+  // Función para agrupar mensajes consecutivos del mismo usuario para renderizar en burbujas
   const groupMessages = (messages) => {
     const grouped = [];
     let lastUser = null;
@@ -80,7 +80,7 @@ export default function ChatScreen({ route, navigation }) {
   return (
     <View style={styles.chatContainer}>
 
-      {/* ✅ Botón para volver atrás */}
+      {/* Botón para volver atrás */}
       <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
         <Text style={styles.backButtonText}>← Volver</Text>
       </TouchableOpacity>
@@ -111,7 +111,7 @@ export default function ChatScreen({ route, navigation }) {
                 {item.user}
               </Text>
 
-              {/* ✨ Burbujas agrupadas */}
+              {/* Burbujas agrupadas */}
               <LinearGradient
                 colors={isOwnMessage ? ['#F19100', '#F7B733'] : ['#6A1B9A', '#8E24AA']}
                 start={{ x: 0, y: 0 }}
@@ -133,7 +133,7 @@ export default function ChatScreen({ route, navigation }) {
         }}
       />
 
-      {/* Barra de input */}
+      {/* Barra de input para enviar mensajes con cifrado y botón de envio*/}
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.textInput}
@@ -146,7 +146,7 @@ export default function ChatScreen({ route, navigation }) {
           style={styles.sendButton}
           onPress={() => {
             if (text.trim()) {
-              sendMessage(encryptMessage(text.trim())); // 🔒 Enviar mensaje cifrado
+              sendMessage(encryptMessage(text.trim())); // Envio mensaje cifrado
               setText('');
             }
           }}
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#323639',
     padding: 16,
-    paddingBottom: 32, // ✅ Más espacio debajo
+    paddingBottom: 32,
   },
   backButton: {
     marginBottom: 12,
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   messageWrapper: {
-    marginBottom: 20, // ✅ Más separación
+    marginBottom: 20,
     maxWidth: '80%',
   },
   messageUser: {
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#323639',
     paddingTop: 8,
-    paddingBottom: 12, // ✅ Más padding abajo
+    paddingBottom: 12, 
     backgroundColor: '#323639',
   },
   textInput: {

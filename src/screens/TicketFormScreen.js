@@ -1,24 +1,27 @@
 import React, { useState } from 'react';
 import { Text, TextInput, TouchableOpacity, Image, StyleSheet, Alert, ScrollView, View } from 'react-native';
-import { useNavigation } from "@react-navigation/native";
-import * as ImagePicker from 'expo-image-picker';
-import * as FileSystem from 'expo-file-system';
-import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from "@react-navigation/native"; // libreria para navegar entre pantallas
+import * as ImagePicker from 'expo-image-picker'; // libreria para acceder a la cámara y galería
+import * as FileSystem from 'expo-file-system'; 
+import { Ionicons } from '@expo/vector-icons'; // libreria para los iconos
 import { CLOUDINARY_UPLOAD_PRESET, CLOUDINARY_CLOUD_NAME, API_URL } from '@env';
 
 
-
+// Componente principal para crear un nuevo ticket/incidencia
 const TicketFormScreen = ({ route }) => {
+  // Datos del usuario actual pasados por navegación
   const { userId, givenName, email, picture } = route.params || {};
 
   const navigation = useNavigation();
 
+  // Estados locales para el formulario y la imagen
   const [equipoClase, setEquipoClase] = useState('');
   const [titulo, setTitulo] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [imageUri, setImageUri] = useState(null);
 
+  // Función para capturar imagen desde cámara
   const pickImage = async () => {
     const result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -31,12 +34,12 @@ const TicketFormScreen = ({ route }) => {
     }
   };
 
-  // Subir imagen a Cloudinary
+  // Subir imagen a Cloudinary y devolver URL segura
 const uploadImageToCloudinary = async (uri) => {
     const base64 = await FileSystem.readAsStringAsync(uri, { encoding: 'base64' });
     const data = {
       file: `data:image/jpeg;base64,${base64}`,
-      upload_preset: CLOUDINARY_UPLOAD_PRESET, // Reemplaza con el tuyo
+      upload_preset: CLOUDINARY_UPLOAD_PRESET,
     };
   
     const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
@@ -82,7 +85,7 @@ const uploadImageToCloudinary = async (uri) => {
     setImageUri(null);
   };
   
-
+  // Enviar el formulario para crear el ticket
   const handleCreateTicket = async () => {
     if (!equipoClase || !titulo || !descripcion) {
       Alert.alert('Error', 'Por favor, completa todos los campos.');
@@ -92,10 +95,13 @@ const uploadImageToCloudinary = async (uri) => {
     setIsLoading(true);
 
     let imageUrl = null;
+
+    // Subir imagen si existe
     if (imageUri) {
       imageUrl = await uploadImageToCloudinary(imageUri);
     }
 
+    // Construcción del objeto de ticket
     const ticketData = {
         autor: {
             userId,       
@@ -107,10 +113,9 @@ const uploadImageToCloudinary = async (uri) => {
       titulo,
       descripcion,
       imagen: imageUrl || null,
-      estado: 'EN_TRAMITE', 
+      estado: 'EN_TRAMITE', // Estado inicial del ticket
     };
 
-    console.log('Enviando ticket:', ticketData);
 
     try {
       const response = await fetch(`${API_URL}/tickets`, {
@@ -124,11 +129,12 @@ const uploadImageToCloudinary = async (uri) => {
 
       if (response.ok) {
         Alert.alert('Éxito', 'Incidencia creada con éxito.');
+        // Reset de formulario
         setEquipoClase('');
         setTitulo('');
         setDescripcion('');
         setImageUri(null);
-        navigation.goBack();
+        navigation.goBack(); // Volver a la pantalla anterior
       } else {
         Alert.alert('Error', 'No se pudo crear la incidencia.');
       }
@@ -151,7 +157,7 @@ const uploadImageToCloudinary = async (uri) => {
             )}
         </TouchableOpacity>
 
-        {/* Botones secundarios */}
+        {/* Botones secundarios de galería y eliminar */}
         <View style={{ flexDirection: 'row', marginTop: 10, marginBottom: 20 }}>
             <TouchableOpacity onPress={handlePickImageFromLibrary} style={styles.secondaryButton}>
             <Text style={styles.secondaryButtonText}>Galería</Text>
@@ -164,7 +170,7 @@ const uploadImageToCloudinary = async (uri) => {
             )}
         </View>
 
-
+      {/* Campo: Nº de equipo o clase */}
       <Text style={styles.label}> Nº del Equipo / Clase:</Text>
       <TextInput
         style={styles.input}
@@ -172,6 +178,7 @@ const uploadImageToCloudinary = async (uri) => {
         onChangeText={setEquipoClase}
       />
 
+      {/* Campo: Título (máx 40 caracteres) */}
       <Text style={styles.label}>Título:</Text>
       <TextInput
         style={styles.input}
@@ -181,6 +188,7 @@ const uploadImageToCloudinary = async (uri) => {
         onChangeText={(text) => text.length <= 40 && setTitulo(text)}
       />
 
+      {/* Campo: Descripción del problema (máx 250 caracteres) */}
       <Text style={styles.label}>Descripción del problema:</Text>
       <TextInput
         style={[styles.input, styles.textArea]}
@@ -191,6 +199,7 @@ const uploadImageToCloudinary = async (uri) => {
         multiline
       />
 
+      {/* Botón de enviar ticket */}
       <TouchableOpacity
         style={[styles.button, isLoading && styles.buttonDisabled]}
         onPress={handleCreateTicket}
@@ -202,6 +211,7 @@ const uploadImageToCloudinary = async (uri) => {
   );
 };
 
+// Estilos del componente personalizados
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,

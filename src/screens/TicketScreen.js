@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity, Image, Dimensions, Animated } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context"; 
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { API_URL } from '@env'; 
 
-
+// Obtener dimensiones de pantalla para estilos responsivos
 const { width, height } = Dimensions.get("window");
 
+// Componente principal de la pantalla de tickets
 const TicketScreen = () => {
+
+  // Extraer datos del usuario desde los parámetros de la ruta
   const { userId ='', givenName='', email='', picture='' } = useRoute().params || {};
   const navigation = useNavigation();
+
+  // Estados para almacenar los tickets y estado de carga
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -17,17 +22,17 @@ const TicketScreen = () => {
   // Función para obtener los tickets desde el backend
   const fetchTickets = async () => {
     try {
-      setLoading(true);
+      setLoading(true); // Mostrar loader
       const response = await fetch(`${API_URL}/tickets/usuario/${userId}/ordenados`);
       if (!response.ok) {
         throw new Error("Error al obtener los tickets");
       }
-      const ticketsData = await response.json();
-      setTickets(ticketsData);
+      const ticketsData = await response.json(); // Parsear respuesta
+      setTickets(ticketsData); // Actualizar estado
     } catch (error) {
-      console.error(error);
+      console.error(error); // Mostrar error si ocurre
     } finally {
-      setLoading(false);
+      setLoading(false); // Ocultar loader
     }
   };
 
@@ -41,10 +46,10 @@ const TicketScreen = () => {
   // Recargar tickets al volver a la pantalla
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
-      fetchTickets();  // Refrescar tickets cuando se enfoque la pantalla
+      fetchTickets(); 
     });
 
-    return unsubscribe;
+    return unsubscribe; // Limpiar el listener
   }, [navigation]);
 
   // Función para obtener el estilo de cada estado de ticket
@@ -61,6 +66,7 @@ const TicketScreen = () => {
     }
   };
 
+  // Renderizado de cada tarjeta de ticket en la lista
   const renderItem = ({ item }) => {
     return (
       <TouchableOpacity>
@@ -80,6 +86,7 @@ const TicketScreen = () => {
     <Text style={styles.incidentsTitleText}>INCIDENCIAS</Text>
   </View>
 
+  {/* Indicador de carga o lista de tickets */}
   {loading ? (
     <ActivityIndicator size="large" color="#33c4ff" />
   ) : (
@@ -106,10 +113,11 @@ const TicketScreen = () => {
   );
 };
 
+// Estilos para el componente personalizados
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#23272A", padding: width * 0.05 },
   incidentsTitleContainer: {
-    width: width * 0.9, // Para que se ajuste mejor en cualquier tamaño de pantalla
+    width: width * 0.9, 
     paddingVertical: height * 0.05,
     alignItems: 'center',
     justifyContent: 'center',
@@ -117,7 +125,7 @@ const styles = StyleSheet.create({
   incidentsTitleText: {
     fontFamily: "AsapCondensed-Bold",
     textTransform: "uppercase", 
-    fontSize: width * 0.08, // Ajusta el tamaño para que no ocupe mucho espacio
+    fontSize: width * 0.08, 
     color: "#33c4ff",
     textAlign: 'center',
   },
